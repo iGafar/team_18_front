@@ -1,6 +1,7 @@
 body {
   background-color: #161616;
   color: #fff;
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
 .container {
@@ -9,24 +10,4 @@ body {
   padding: 0 10px;
   display: flex;
   justify-content: space-between;
-}
-
-.header .container {
-  border-bottom: 1px #8d8d8d solid;
-}
-
-.header__block {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 16px;
-  height: 48px;
-}
-
-.header__block p {
-  width: 124px;
-}
-
-.main {
-  flex-grow: 1;
 }

@@ -1,7 +1,8 @@
 import React from "react";
-import logo from "../assets/images/logo.svg";
-import avatar from "../assets/images/avatar.svg"
-import settings from "../assets/images/settings.svg"
+import logo from "../../assets/images/logo.svg";
+import avatar from "../../assets/images/avatar.svg"
+import settings from "../../assets/images/settings.svg"
+import './Header.css'
 
 export default function Header() {
   return (
