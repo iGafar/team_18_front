@@ -1,12 +1,20 @@
 import Header from "./components/Header";
 import Main from "./components/Main";
-import { Route, Router } from "react-router-dom";
+import Login from "./components/login/login"
+import { Route, Router, Routes } from "react-router-dom";
 
 function App() {
   return (
     <>
-			<Header />
-      <Main />
+      <Routes>
+        <Route path='/' element={
+            <>
+              <Header/>
+              <Main/>
+            </>
+           }/>
+        <Route path='/login' element={ <Login/> }/>
+      </Routes>
     </>
   );
 }
