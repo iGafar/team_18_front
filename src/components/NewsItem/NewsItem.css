@@ -1,0 +1,22 @@
+.news-item {
+	width: 332px;
+	padding: 16px;
+	background-color: #262626;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.arrow {
+	text-align: right;
+}
+
+.social {
+	display: flex;
+	gap: 8px;
+}
+
+.social__item {
+	display: flex;
+	align-items: center;
+}

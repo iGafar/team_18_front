@@ -1,0 +1,19 @@
+.header {
+	margin-bottom: 48px;
+}
+
+.header .container {
+  border-bottom: 1px #8d8d8d solid;
+}
+
+.header__block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+  height: 48px;
+}
+
+.header__block p {
+  width: 124px;
+}
