@@ -8,7 +8,7 @@ import NewsItem from '../NewsItem/NewsItem'
 export default function NewsBlock() {
   return (
     <div className="news">
-      <label>
+      <label className="news__search">
         <input type="search" placeholder="Введите текст для поиска"></input>
       </label>
 
