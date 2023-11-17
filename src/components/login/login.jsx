@@ -1,7 +1,7 @@
 import './login.css'
 import { useDocumentTitle } from "../../hooks/setDocumentTitle"
 import { useState } from "react";
-import logo from "../../assets/images/login/logo/00.png";
+import eye from "../../assets/images/login/eye.gif";
 import view from "../../assets/images/login/view.svg";
 import view_off from "../../assets/images/login/view-off.svg";
 
@@ -14,7 +14,7 @@ export default function Login() {
     return (
         <div className="login-page login-flex">
             <div className="login-main login-flex">
-                <div className="login-logo"><img src={logo} alt=""/></div>
+                <div className="login-logo"><img src={eye} alt=""/></div>
                 <div className="login-form-container">
                     <form action="">
                         <label htmlFor="username" className="login-label-text">Логин</label>
