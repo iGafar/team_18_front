@@ -1,0 +1,89 @@
+/* ------------------------------------------------------------------------- */
+/* --------------------------------- login --------------------------------- */
+  
+html, body, div, span, p, i, form, label, button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+.login-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page {
+    background-color: #1e1e1e;
+    height: 100vh;
+    width: 100vw;
+}
+
+.login-main {
+    flex-direction: column;
+}
+
+.login-logo {
+    margin-top: -170px;
+    margin-bottom: -145px;
+}
+
+.login-form-container {
+    background-color: #262626;
+    padding: 24px 60px;
+    width: 35vw;
+}
+
+.login-label-text {
+    color: grey;
+    font-family: 'IBM Plex Mono', sans-serif;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 14px;
+}
+
+.login-form-container input{
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 1.5%;
+    margin-bottom: 1.2rem;
+    padding: 0.6rem 4%;
+    font-family: 'IBM Plex Mono', sans-serif;
+    color: black;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 14px;
+}
+
+.login-password-container {
+    position: relative;
+}
+
+#password {
+    padding-right: 13%;
+}
+
+#login-toggle-password {
+    position: absolute;
+    right: 4%;
+    top: 40%;
+    transform: translateY(-45%);
+}
+
+.login-form-container > form > button {
+    color: white;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 18px;
+    background-color: #006ccf;
+    margin-top: 1rem;
+    padding: 3% 4%;
+    width: 100%;
+    text-align: left;
+}
+  
+  /* ------------------------------- end login ------------------------------- */
+  /* ------------------------------------------------------------------------- */
