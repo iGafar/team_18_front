@@ -8,6 +8,10 @@
 	height: min-content;
 }
 
+.date {
+	font-family: "IBM Plex Mono";
+}
+
 .arrow {
   text-align: right;
 }
