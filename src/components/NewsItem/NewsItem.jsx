@@ -56,6 +56,8 @@ export default function News() {
           <p>5.4K</p>
         </div>
       </div>
+
+      <button className="button">в избранное</button>
     </div>
   );
 }

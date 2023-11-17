@@ -12,8 +12,8 @@ export default function NewsBlock() {
         <input type="search" placeholder="Введите текст для поиска"></input>
       </label>
 
-      <div className="news__block">
-        <p>Имя пользователя</p>
+      <div className="news__info">
+        <p>https:/knife.media/</p>
         <div className="icon-block">
           <span>
             <img src={view}></img>
@@ -29,8 +29,9 @@ export default function NewsBlock() {
           </span>
         </div>
       </div>
-      <div>
+      <div className="news__block">
         <NewsItem />
+				<NewsItem />
       </div>
     </div>
   );

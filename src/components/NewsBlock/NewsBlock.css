@@ -26,10 +26,17 @@ input {
   padding-left: 48px;
 }
 
-.news__block {
+.news__info {
   display: flex;
   justify-content: space-between;
   align-items: center;
+	margin-bottom: 16px;
+	text-transform: uppercase;
+}
+
+.news__block {
+	display: flex;
+	gap: 16px;
 }
 
 .icon-block {
