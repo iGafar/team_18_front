@@ -1,27 +1,5 @@
 /* ------------------------------------------------------------------------- */
 /* --------------------------------- login --------------------------------- */
-
-@font-face {
-    font-family: 'IBM Plex Mono';
-    src: url('../../assets/fonts/subtitles/IBMPlexMono-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  
-@font-face {
-    font-family: 'IBM Plex Sans';
-    src: url('../../assets/fonts/buttons/IBMPlexSans-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-  
-@font-face {
-    font-family: 'Open Sans';
-    src: url('../../assets/fonts/open_sans/OpenSans-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-  
   
 html, body, div, span, p, i, form, label, button {
     margin: 0;
@@ -61,7 +39,7 @@ html, body, div, span, p, i, form, label, button {
 
 .login-label-text {
     color: grey;
-    font-family: 'IBM Plex Mono', 'Open Sans', monospace;
+    font-family: 'IBM Plex Mono', sans-serif;
     font-size: 14px;
     letter-spacing: 0px;
     line-height: 14px;
@@ -73,7 +51,7 @@ html, body, div, span, p, i, form, label, button {
     margin-top: 1.5%;
     margin-bottom: 1.2rem;
     padding: 0.6rem 4%;
-    font-family: 'IBM Plex Mono', 'Open Sans', monospace;
+    font-family: 'IBM Plex Mono', sans-serif;
     color: black;
     font-size: 14px;
     letter-spacing: 0px;
@@ -96,7 +74,6 @@ html, body, div, span, p, i, form, label, button {
 }
 
 .login-form-container > form > button {
-    font-family: 'IBM Plex Sans', 'Open Sans', monospace;
     color: white;
     font-size: 14px;
     letter-spacing: 0px;
