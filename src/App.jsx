@@ -1,19 +1,15 @@
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import Login from "./components/Login/Login"
-import { Route, Router, Routes } from "react-router-dom";
+import Login from "./pages/Login/Login";
+import Admin from "./pages/Admin/Admin";
+import User from './pages/User/User'
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={
-            <>
-              <Header/>
-              <Main/>
-            </>
-           }/>
-        <Route path='/login' element={ <Login/> }/>
+        <Route path="/" element={<Login />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </>
   );

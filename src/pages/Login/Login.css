@@ -34,7 +34,6 @@ html, body, div, span, p, i, form, label, button {
 .login-form-container {
     background-color: #262626;
     padding: 24px 60px;
-    width: 35vw;
 }
 
 .login-label-text {

@@ -1,7 +1,6 @@
 body {
   background-color: #161616;
   color: #fff;
-  font-family: "IBM Plex Sans", sans-serif;
 }
 
 .container {
@@ -10,4 +9,5 @@ body {
   padding: 0 10px;
   display: flex;
   justify-content: space-between;
+  font-family: "IBM Plex Sans", sans-serif;
 }

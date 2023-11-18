@@ -1,0 +1,22 @@
+.news-source-item{
+	border: solid red;
+}
+
+.accordion-header {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr;
+	justify-content: center;
+	align-items: center;
+}
+
+.accordion-radio {
+	margin-right: 1rem;
+}
+
+.accordion-title {
+	margin-right: 1rem;
+}
+
+.accordion-arrow {
+}
