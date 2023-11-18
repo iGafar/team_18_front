@@ -1,4 +1,4 @@
-import './login.css'
+import './Login.css'
 import { useDocumentTitle } from "../../hooks/setDocumentTitle"
 import { useState } from "react";
 import eye from "../../assets/images/login/eye.gif";
