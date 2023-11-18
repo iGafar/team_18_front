@@ -9,9 +9,6 @@ import ContentOrganizationTabs from "../ContentOrganizationTabs/ContentOrganizat
 export default function NewsBlock() {
   return (
     <div className="newsPage">
-      <div className="contentOrganizationTabsContainer">
-        <ContentOrganizationTabs/>
-      </div>
 
       <div className="news">
         <label className="news__search">
