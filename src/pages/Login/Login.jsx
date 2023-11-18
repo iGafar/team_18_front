@@ -1,6 +1,6 @@
-import './login.css'
+import './Login.css'
 import { useDocumentTitle } from "../../hooks/setDocumentTitle"
-import { useState } from "react";
+import React, { useState } from "react";
 import eye from "../../assets/images/login/eye.gif";
 import view from "../../assets/images/login/view.svg";
 import view_off from "../../assets/images/login/view-off.svg";
