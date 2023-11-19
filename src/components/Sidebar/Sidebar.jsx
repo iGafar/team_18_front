@@ -1,11 +1,11 @@
 import "./Sidebar.css";
 import React from "react";
-import SiteFilter from "../NewsFilter/SiteFilter";
+import SiteFilter from "../SiteFilter/SiteFilter";
 import edit from "../../assets/images/edit.svg";
 import favourite from "../../assets/images/favorite.svg";
 import search from "../../assets/images/search.svg";
 import Favourites from "../Favourites/Favourites";
-import Scenarios from "../NewsFilterSourceItem/Scenarios";
+import Scenarios from "../Scenarios/Scenarios";
 
 export default function Sidebar() {
     return (
