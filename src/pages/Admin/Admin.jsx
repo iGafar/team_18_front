@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "../../components/Header/Header";
-import Users3 from "../../components/AdminUsers3/AdminUsers3"
+import AdminAddUser from "../../components/AdminAddUser/AdminAddUser"
 import UsersList from "../../components/UsersList/UsersList";
+import AdminUserInfo from "../../components/AdminUserInfo/AdminUserInfo";
 
 export default function admin() {
   return (
@@ -10,8 +11,9 @@ export default function admin() {
       <main className="admin">
 				<div className="container">
 					<h2>Пользователи</h2>
+          <AdminUserInfo/>
 					<UsersList />
-          <Users3/>
+          <AdminAddUser/>
 				</div>
 			</main>
     </>

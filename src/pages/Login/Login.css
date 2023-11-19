@@ -19,12 +19,17 @@
 
 .login-logo {
     margin-top: -170px;
-    margin-bottom: -145px;
+    margin-bottom: -70px;
+}
+
+.login-logo > img {
+    width: 30vw;
 }
 
 .login-form-container {
     background-color: #262626;
     padding: 24px 60px;
+    width: 35vw;
 }
 
 .login-label-text {

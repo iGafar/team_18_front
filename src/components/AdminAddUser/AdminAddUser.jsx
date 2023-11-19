@@ -1,17 +1,17 @@
-import './AdminUsers3.css';
+import './AdminAddUser.css';
 
 
-export default function AdminUsers3() {
+export default function AdminaddUser() {
 
     return (
-        <div className="admin-users3-container">
+        <div className="admin-addUser-container">
             <form action="">
-                <label htmlFor="username" className="admin-users3-label">Имя пользователя</label>
+                <label htmlFor="username" className="admin-addUser-label">Имя пользователя</label>
                 <input type="text" id="username" autoComplete="on"/>
-                <label htmlFor="email" className="admin-users3-label">E-mail</label>
+                <label htmlFor="email" className="admin-addUser-label">E-mail</label>
                 <input type="email" id="email" autoComplete="on"/>
                 <h2>Права доступа</h2>
-                <div className="admin-user3-radio">
+                <div className="admin-addUser-radio">
                     <div>
                         <label htmlFor="main_editor">Главный редактор</label>
                         <input type="radio" id="main_editor" name='editor_choice'/>
