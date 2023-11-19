@@ -1,0 +1,58 @@
+.admin-addUser-container {
+    background-color: #262626;
+    min-width: 25vw;
+    padding: 2%;
+}
+
+.admin-addUser-container > form {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-addUser-label {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0px;
+    line-height: 14px;
+}
+
+.admin-addUser-container > form > input {
+    color: black;
+    margin-top: 3%;
+    margin-bottom: 8%;
+    padding: 0.5rem 4%;
+    width: 100%;
+    font-weight: 400;
+}
+
+.admin-addUser-container > form > h2 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.admin-addUser-radio > div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6%;
+    padding-right: 3%;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.admin-addUser-radio {
+    margin-bottom: 4%;
+}
+
+.admin-addUser-container > form > button {
+    color: white;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 18px;
+    background-color: #006ccf;
+    margin-top: 1rem;
+    padding: 3% 4%;
+    width: 100%;
+    text-align: left;
+}

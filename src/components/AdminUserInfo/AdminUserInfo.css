@@ -1,0 +1,52 @@
+.adminUserInfo-container {
+    background-color: #262626;
+    min-width: 25vw;
+    padding: 2%;
+    padding-bottom: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.adminUserInfo-property {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5% 3%;
+    display: flex;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.adminUserInfo-property-title {
+    position: relative;
+    align-self: stretch;
+    color: #ffffff;
+}
+
+.adminUserInfo-property-string {
+    align-items: center;
+    display: flex;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+}
+
+.adminUserInfo-property-name {
+    position: relative;
+    flex-grow: 1;
+    color: #ffffff;
+}
+
+.adminUserInfo-property-button {
+    padding: 8px;
+}
+
+.adminUserInfo-property-button > img {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    background-blend-mode: multiply;
+}
