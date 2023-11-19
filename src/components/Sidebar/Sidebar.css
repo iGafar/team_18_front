@@ -1,0 +1,30 @@
+.sidebar {
+    min-width: 332px;
+    margin-right: 1rem;
+}
+
+.tab-button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab-button {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    flex: 1;
+    flex-direction: column;
+    padding: 10px 14px;
+    border-top: 4px solid transparent;
+    color: #8D8D8D;
+}
+
+.button-clicked {
+    border-top: 4px solid #006CCF;
+    background-color: #272728;
+    color: #FFF;
+}
+
+.tab-button img {
+    width: 20px;
+}

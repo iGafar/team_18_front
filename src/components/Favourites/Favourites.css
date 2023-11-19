@@ -1,0 +1,37 @@
+/*div {*/
+/*    border: 1px solid red;*/
+/*}*/
+
+.favourites-container {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    background: #262626;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: stretch;
+}
+
+.toggle {
+    display: flex;
+    width: 48px;
+    padding: 3px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.user-name {
+    flex: 1 0 0;
+    color: #FFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 100% */
+}
