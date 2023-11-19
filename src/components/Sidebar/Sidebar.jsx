@@ -4,6 +4,8 @@ import SiteFilter from "../NewsFilter/SiteFilter";
 import edit from "../../assets/images/edit.svg";
 import favourite from "../../assets/images/favorite.svg";
 import search from "../../assets/images/search.svg";
+import Favourites from "../Favourites/Favourites";
+import Scenarios from "../NewsFilterSourceItem/Scenarios";
 
 export default function Sidebar() {
     return (
@@ -24,6 +26,8 @@ export default function Sidebar() {
             </div>
 
             <SiteFilter/>
+            <Favourites/>
+            <Scenarios/>
         </div>
     );
 }
