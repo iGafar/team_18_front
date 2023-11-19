@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import "./Sidebar.css";
-import React from "react";
 import SiteFilter from "../SiteFilter/SiteFilter";
 import edit from "../../assets/images/edit.svg";
 import favourite from "../../assets/images/favorite.svg";
@@ -8,26 +8,37 @@ import Favourites from "../Favourites/Favourites";
 import Scenarios from "../Scenarios/Scenarios";
 
 export default function Sidebar() {
+    const [activeTab, setActiveTab] = useState('search');
+
+    const handleTabClick = (tabName) => {
+        setActiveTab(tabName);
+    };
+
     return (
         <div className="sidebar">
             <div className="tab-button-container">
-                <div className="tab-button button-clicked">
-                    <img src={search}></img>
+                <div className={`tab-button ${activeTab === 'search' ? 'button-clicked' : ''}`}
+                     onClick={() => handleTabClick('search')}>
+                    <img src={search} alt="Search"></img>
                     <span>Поиск</span>
                 </div>
-                <div className="tab-button">
-                    <img src={favourite}></img>
+
+                <div className={`tab-button ${activeTab === 'favourite' ? 'button-clicked' : ''}`}
+                     onClick={() => handleTabClick('favourite')}>
+                    <img src={favourite} alt="Favourite"></img>
                     <span>Избранное</span>
                 </div>
-                <div className="tab-button">
-                    <img src={edit}></img>
+
+                <div className={`tab-button ${activeTab === 'edit' ? 'button-clicked' : ''}`}
+                     onClick={() => handleTabClick('edit')}>
+                    <img src={edit} alt="Edit"></img>
                     <span>Сценарий</span>
                 </div>
             </div>
 
-            <SiteFilter/>
-            <Favourites/>
-            <Scenarios/>
+            {activeTab === 'search' && <SiteFilter/>}
+            {activeTab === 'favourite' && <Favourites/>}
+            {activeTab === 'edit' && <Scenarios/>}
         </div>
     );
 }

@@ -29,9 +29,7 @@
 
 .user-name {
     flex: 1 0 0;
-    font-family: IBM Plex Sans;
     color: #FFF;
-    leading-trim: both;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
