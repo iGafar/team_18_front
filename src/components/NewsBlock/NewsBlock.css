@@ -1,11 +1,11 @@
-.newsPage{
-    display: flex;
-    width: 100%;
-    margin-bottom: 16px;
+.newsPage {
+  display: flex;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 .contentOrganizationTabsContainer {
-    flex: 1;
+  flex: 1;
 }
 
 .news {
@@ -41,13 +41,74 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-	margin-bottom: 16px;
-	text-transform: uppercase;
+  margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
 .news__block {
-	display: flex;
-	gap: 16px;
+  display: flex;
+  gap: 16px;
+}
+
+.news-select__control {
+  width: 288px;
+  background-color: #161616 !important;
+  border: 2px solid #0f62fe !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.news-number__control {
+  width: 78px !important;
+  height: 48px !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  border: none !important;
+  text-align: center;
+  background-color: #161616 !important;
+}
+
+.news-select__single-value,
+.news-number__single-value {
+  color: #fff !important;
+}
+
+.news-select__indicator-separator,
+.news-number__indicator-separator {
+  display: none !important;
+}
+
+.news-select__menu,
+.news-number__menu {
+  background-color: #161616 !important;
+  color: #a8a8a8 !important;
+  text-transform: none !important;
+}
+
+.news-number__menu {
+  width: 48px !important;
+}
+
+.news-select__option,
+.news-number__option {
+  background-color: #161616 !important;
+}
+
+.news-number__option {
+  width: 48px !important;
+  height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center;
+}
+
+.news-select__option:hover,
+.news-select__option:focus-visible,
+.news-number__option:hover,
+.news-number__option:focus-visible {
+  background-color: #0f62fe !important;
+  cursor: pointer !important;
 }
 
 .icon-block {
@@ -55,21 +116,20 @@
   align-items: center;
 }
 
-.icon-block span {
+.icon-block span:not(:first-child) {
   display: inline-block;
   text-align: center;
-  vertical-align: auto;
-  width: 48px;
-  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
 }
 
-.icon-block span:hover {
-	cursor: pointer;
-	background-color: #262626;
+.icon-block span:hover:not(:first-child) {
+  cursor: pointer;
+  background-color: #262626;
 }
 
-.icon-block span * {
-	position: relative;
-	top: 50%;
-  transform: translateY(-50%);
+.icon-block span img {
+  position: relative;
+  top: 50%;
+  transform: translateY(70%);
 }

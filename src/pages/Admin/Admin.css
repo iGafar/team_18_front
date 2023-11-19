@@ -1,0 +1,13 @@
+.admin .container {
+	display: flex;
+	flex-direction: column;
+}
+
+.admin h2 {
+	
+}
+
+.admin__block {
+	display: flex;
+	justify-content: space-between;
+}
