@@ -24,6 +24,10 @@
     position: relative;
     align-self: stretch;
     color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0.16px;
+    line-height: 18px;
+    font-weight: 600;
 }
 
 .adminUserInfo-property-string {
@@ -38,6 +42,10 @@
     position: relative;
     flex-grow: 1;
     color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0.16px;
+    line-height: 18px;
+    font-weight: 400;
 }
 
 .adminUserInfo-property-button {
