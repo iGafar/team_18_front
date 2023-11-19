@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/Header/Header";
 import NewsBlock from "../../components/NewsBlock/NewsBlock";
-import ContentOrganizationTabs from "../../components/ContentOrganizationTabs/ContentOrganizationTabs";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 export default function admin() {
   return (
@@ -9,7 +9,7 @@ export default function admin() {
       <Header />
       <main className="user">
         <div className="container">
-          <ContentOrganizationTabs />
+          <Sidebar />
           <NewsBlock />
         </div>
       </main>

@@ -4,7 +4,6 @@ import view from "../../assets/images/view-card.svg";
 import sort from "../../assets/images/sort.svg";
 import trash from "../../assets/images/trash.svg";
 import NewsItem from '../NewsItem/NewsItem'
-import ContentOrganizationTabs from "../ContentOrganizationTabs/ContentOrganizationTabs";
 
 export default function NewsBlock() {
   return (
