@@ -5,38 +5,13 @@ import eye from "../../assets/images/icon-eye.svg";
 import like from "../../assets/images/icon-like.svg";
 import coment from "../../assets/images/icon-coment.svg";
 import sent from "../../assets/images/icon-sent.svg";
-export default function News() {
+export default function News(props) {
   const [hidden, setHidden] = useState(false);
 
   return (
     <div className="news-item">
       <div className="date">13.11.2023 10-00</div>
-      <div className="title">
-        В Новосибирской области бобры затопили дорогу и оставили без света два
-        села
-      </div>
-
-      <div className="arrow" onClick={() => setHidden(!hidden)}>
-        <img src={chevron}></img>
-      </div>
-      {hidden && (
-        <div className="text">
-          <p>
-            В Новосибирской области бобры построили плотины на реке Грязнушке и
-            поменяли ее русло. В результате вода вышла из берегов, затопила
-            дорогу и подмыла опору линии электропередачи. Два села остались без
-            света на несколько часов. Сотрудники дорожно-строительного
-            управления попытались разрушить препятствия в реке, однако их
-            техника также увязла в трясине. «Здесь не подступиться. Песчаный
-            грунт, и набралось много воды, возможно, даже плывуны были, потому
-            что экскаватор моментально ушел, вытаскивали болотоходом и таким же
-            экскаватором», — рассказал начальник участка. Сейчас власти района
-            отчитались о разрушении бобровых дамб и отведении воды. Они
-            разрабатывают план мероприятий по предотвращению подобных ситуаций и
-            наблюдают за грызунами.
-          </p>
-        </div>
-      )}
+      <div className="title">{props.title}</div>
 
       <div className="social">
         <div className="social__item">
@@ -55,7 +30,20 @@ export default function News() {
           <img src={sent}></img>
           <p>5.4K</p>
         </div>
+
+        <div className="arrow" onClick={() => setHidden(!hidden)}>
+          <img
+            className={hidden ? "arrow-img arrow-active" : "arrow-img"}
+            src={chevron}
+          ></img>
+        </div>
       </div>
+
+      {hidden && (
+        <div className="text">
+          <p>{props.body}</p>
+        </div>
+      )}
 
       <button className="button">в избранное</button>
     </div>

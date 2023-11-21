@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./NewsBlock.css";
-import view from "../../assets/images/view-card.svg";
-import sort from "../../assets/images/sort.svg";
 import trash from "../../assets/images/trash.svg";
 import NewsItem from "../NewsItem/NewsItem";
 import Select from "react-select";
+import news from "../../assets/news.json";
 
 export default function NewsBlock() {
   const optionsSort = [
@@ -22,7 +21,17 @@ export default function NewsBlock() {
     { value: "9", label: "9" },
     { value: "12", label: "12" },
     { value: "15", label: "15" },
+    { value: "18", label: "18" },
   ];
+
+  const [maxNewsOnPage, setMaxNewsOnPage] = useState(3);
+  const [filteredNews, setFilteredNews] = useState(news);
+  const [pages, setPages] = useState(Math.floor(news.length / maxNewsOnPage));
+
+  useEffect(() => {
+    setFilteredNews(news.slice(0, maxNewsOnPage));
+    setPages(Math.floor(news.length / maxNewsOnPage));
+  }, [maxNewsOnPage]);
 
   return (
     <div className="newsPage">
@@ -45,7 +54,8 @@ export default function NewsBlock() {
               classNamePrefix="news-number"
               placeholder="3"
               options={optionsNumber}
-							defaultValue={optionsNumber[0]}
+              defaultValue={optionsNumber[0]}
+              onChange={(option) => setMaxNewsOnPage(option.value)}
             />
             <span>
               <img src={trash}></img>
@@ -53,10 +63,19 @@ export default function NewsBlock() {
           </div>
         </div>
         <div className="news__block">
-          <NewsItem />
-          <NewsItem />
+          {filteredNews.map((el) => (
+            <NewsItem key={el.id} title={el.title} body={el.body} />
+          ))}
         </div>
       </div>
+
+      <ul className="news__pages">
+        {[...Array(5)].map((el, i) => (
+          <li key={i}>{i + 1}</li>
+        ))}
+				<li>...</li>
+				<li>{pages}</li>
+      </ul>
     </div>
   );
 }

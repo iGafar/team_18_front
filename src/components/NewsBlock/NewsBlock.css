@@ -2,6 +2,7 @@
   display: flex;
   width: 100%;
   margin-bottom: 16px;
+	flex-direction: column;
 }
 
 .contentOrganizationTabsContainer {
@@ -14,6 +15,11 @@
   flex: 3;
   width: 100%;
   margin-bottom: 16px;
+}
+
+.news__pages {
+	display: flex;
+	gap: 10px;
 }
 
 .news__search {
@@ -48,6 +54,7 @@
 .news__block {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .news-select__control {

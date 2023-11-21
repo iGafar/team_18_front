@@ -1,26 +1,35 @@
 .news-item {
-  width: 332px;
+  width: 100%;
   padding: 16px;
   background-color: #262626;
   display: flex;
   flex-direction: column;
   gap: 16px;
-	height: min-content;
+  height: min-content;
 }
 
 .date {
-	font-family: "IBM Plex Mono";
+  font-family: "IBM Plex Mono";
 }
 
 .arrow {
   text-align: right;
+  width: 100%;
+}
+
+.arrow-img {
+  transition: all 200ms linear;
+}
+
+.arrow-active {
+  transform: rotate(0.5turn);
 }
 
 .arrow:hover {
-  background-color: rgba(22, 22, 22, .1);
+  background-color: rgba(22, 22, 22, 0.1);
 }
 
-.arrow img:hover {
+.arrow:hover {
   cursor: pointer;
   opacity: 0.8;
 }

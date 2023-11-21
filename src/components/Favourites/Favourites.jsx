@@ -5,7 +5,7 @@ import toggleOn from "../../assets/images/toggle-on.svg";
 export default function Favourites() {
     return (
        <div className="favourites-container">
-           <div className="user">
+           <div className="favourites-user">
                <div className="toggle">
                    <img src={toggleOn}></img>
                </div>
