@@ -1,0 +1,38 @@
+.adminUserImage-container {
+    background-color: #262626;
+    min-width: 25vw;
+    padding: 2%;
+    padding-bottom: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.adminUserImage-wrapper {
+    padding: 4%;
+}
+
+.adminUserImage-image {
+    box-sizing: border-box;
+    padding-top: 2%;
+    margin-bottom: 11%;
+}
+
+.adminUserImage-image > img {
+    max-width: 100%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.adminUserImage-wrapper > button {
+    color: #006CCF;
+    border: 1px solid #006CCF;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 18px;
+    background-color: inherit;
+    padding: 3% 4%;
+    width: 100%;
+    text-align: left;
+}
