@@ -9,11 +9,12 @@
 
 .checkButton-wrapper:hover {
     color: #0F62FE;
+    cursor: pointer;
 }
 
 .checkButton-inner {
     width: 100%;
-    padding: 2% 5%;
+    padding: 0% 5%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -28,7 +29,7 @@
 }
 
 .sitesList-element {
-    padding: 0.5rem 1rem;;
+    padding: 0.1rem 1rem;;
     display: flex;
     align-items: center;
     gap: 1rem;

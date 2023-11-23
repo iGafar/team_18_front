@@ -13,6 +13,24 @@ export default function SiteSettings({site, handleSiteToggle}) {
         handleSiteToggle(site)
     }
 
+    const [sortedTags, setSortedTags] = useState(site.tags.sort((a, b) => a.active === b.active ? 0 : a.active ? -1 : 1))
+    
+    function toggleTagStatus(tag) {
+        setSortedTags(prev => {
+            const newList = prev.map(oldTag => {        
+                if (oldTag === tag) {return {...oldTag, active: !oldTag.active}}
+                return oldTag;
+                });
+            return newList.sort((a, b) => a.active === b.active ? 0 : a.active ? -1 : 1);
+        })
+    }
+
+    function activeteAllTags() {
+        setSortedTags(prev => {
+            return prev.map(oldTag => (oldTag.active ? oldTag : {...oldTag, active:true}))
+        })
+    }
+
     return (
         <div className="siteSettings-container">
             <div className="siteSettings-wrapper">
@@ -23,12 +41,12 @@ export default function SiteSettings({site, handleSiteToggle}) {
 
                     <div className="siteSettings-menu">
                         <p>Тэги</p>
-                        <button className="siteSettings-tagsButton"><p>Включить все</p></button>
+                        <button className="siteSettings-tagsButton" onClick={activeteAllTags}><p>Включить все</p></button>
                     </div>
                     <div className="siteSettings-tags-container">
                         {showAllTags ? 
                             <>
-                                {site.tags.map((tag, index) => <Tag tag={tag} key={index}/>)}
+                                {sortedTags.map((tag, index) => <Tag key={index} tag={tag} clickHandler={toggleTagStatus} />)}
                                 <button className="siteSettings-tagsButton siteSettings-hideAll" onClick={() => setShowAllTags(false)}>
                                     <p>Свернуть</p>
                                     <div><img src={ chevron } alt="" /></div>
@@ -36,8 +54,8 @@ export default function SiteSettings({site, handleSiteToggle}) {
                             </>
                         :
                             <>
-                                {site.tags.slice(0, 10).map((tag, index) => <Tag tag={tag} key={index}/>)}
-                                {site.tags.length > 10 &&
+                                {sortedTags.slice(0, 10).map((tag, index) => <Tag key={index} tag={tag} clickHandler={toggleTagStatus} />)}
+                                {sortedTags.length > 10 &&
                                 <button className="siteSettings-tagsButton" onClick={() => setShowAllTags(true)}>
                                     <p>Развернуть</p>
                                     <div><img src={ chevron } alt="" /></div>
