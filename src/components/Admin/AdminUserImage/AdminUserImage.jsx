@@ -1,5 +1,5 @@
 import "./AdminUserImage.css"
-import default_img from "../../assets/images/Admin-default-img.png"
+import default_img from "../../../assets/images/Admin-default-img.png"
 
 
 export default function AdminUserImage() {

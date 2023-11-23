@@ -1,0 +1,41 @@
+.checkSites-container {
+    position: relative;
+}
+
+.checkButton-wrapper {
+    width: 25%;
+    border: 1px solid #0F62FE;
+}
+
+.checkButton-wrapper:hover {
+    color: #0F62FE;
+}
+
+.checkButton-inner {
+    width: 100%;
+    padding: 2% 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #161616;
+}
+
+.sitesList-wrapper {
+    width: 25%;
+    background-color: #161616;
+    position: absolute;
+    border: 1px solid #0F62FE;
+}
+
+.sitesList-element {
+    padding: 0.5rem 1rem;;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow: hidden;
+}
+
+.sitesList-element:hover {
+    background-color: rgba(14, 78, 197, 0.897);
+    cursor: pointer;
+}

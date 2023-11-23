@@ -1,0 +1,95 @@
+.siteSettings-container {
+    background-color: #262626;
+    width: 24%;
+    padding: 2%;
+}
+
+.siteSettings-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.siteSettings-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.siteSettings-name {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: #FC0 0px 0 10px;
+}
+
+.siteSettings-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.siteSettings-tags-container {
+    margin-top: -0.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+}
+
+.siteSettings-tags-container .tag {
+    min-width: calc(100% / 4 - 3%);
+    padding: 0 3%;
+    justify-content: space-between;
+    gap: 0;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.32px;
+}
+
+.siteSettings-tags-container > .siteSettings-tagsButton {
+    margin-top: -0.3rem;
+}
+
+.siteSettings-tagsButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.siteSettings-tagsButton :hover {
+    color:#006CCF
+}
+
+.siteSettings-hideAll div {
+    display: flex;
+    align-items: end;
+}
+
+.siteSettings-hideAll img {
+    transform: rotate(180deg) translateY(-0.4rem);
+}
+
+.siteSettings-wrapper > button {
+    color: #006CCF;
+    border: 1px solid #006CCF;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 18px;
+    background-color: inherit;
+    padding: 3% 4%;
+    width: 100%;
+    text-align: left;
+}
+
+.siteSettings-wrapper > button:hover {
+    color: rgb(208, 70, 70);
+    border: 1px solid rgb(208, 70, 70);
+}
