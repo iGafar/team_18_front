@@ -58,7 +58,7 @@
 }
 
 .news-select__control {
-  width: 288px;
+  width: 288px !important;
   background-color: #161616 !important;
   border: 2px solid #0f62fe !important;
   text-transform: none !important;
@@ -116,6 +116,28 @@
 .news-number__option:focus-visible {
   background-color: #0f62fe !important;
   cursor: pointer !important;
+}
+
+.news__paginate {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.news__paginate li a {
+	width: 48px;
+	height: 48px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.news__paginate li a:hover {
+	cursor: pointer;
+	background-color: ;
+}
+
+.news__paginate .active {
+	border-bottom: 4px #006CCF solid;
 }
 
 .icon-block {
