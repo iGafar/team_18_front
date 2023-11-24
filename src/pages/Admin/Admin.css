@@ -1,6 +1,7 @@
 .admin .container {
 	display: flex;
 	flex-direction: column;
+	margin-bottom: 2%;
 }
 
 .admin h2 {
@@ -10,4 +11,47 @@
 .admin__block {
 	display: flex;
 	justify-content: space-between;
+	gap: 1rem;
+}
+
+.admin__block > * {
+	max-width: calc((100% - 3 * 1rem) / 4);
+}
+
+.admin__bottom__block {
+	margin-top: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 1rem;
+	width: 100%;
+}
+
+.userEditForm {
+	width: 100%;
+}
+
+.userEditForm {
+	width: 100%;
+}
+
+
+.userEditForm .textInput{
+	background-color: #262626;
+	width: calc(101% - 3rem);
+	font-size: 14px;
+    letter-spacing: 0.16px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+
+.userEditForm > div {
+	display: flex;
+    justify-content: space-between;
+	margin-bottom: 0.5rem;
+	font-size: 14px;
+    letter-spacing: 0.16px;
+    line-height: 18px;
+    font-weight: 400;
 }

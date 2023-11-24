@@ -1,0 +1,41 @@
+.tag {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 14px;
+    margin: 0.1rem 0;
+}
+
+.tag-blue {
+    background-color: #096ac8;
+}
+
+.tag-blue:hover {
+    background-color: #0b80f5
+}
+
+.tag-white {
+    background-color: #eaebeb;
+    color: #8D8D8D;
+}
+
+.tag-white:hover {
+    background-color: #fcfcfc;
+    color: #070707;
+}
+
+.tag-white:hover > img {
+    transform: rotate(45deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+.tagSpan {
+    padding-right: 0rem !important; 
+}
+
+.tag > button {
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,8 @@
+{
+    "users": [
+        {"user_name": "Ivan Ivanov", "email": "ivan@mail.ru", "isMain": true},
+        {"user_name": "Petr Petrov", "email": "petr@mail.ru", "isMain": false},
+        {"user_name": "Fedor Fedorov", "email": "fedor@mail.ru", "isMain": false},
+        {"user_name": "Grigoriy Grigoriev", "email": "grig@mail.ru", "isMain": false}
+    ]
+}

@@ -1,0 +1,40 @@
+.users-container {
+    background-color: #262626;
+    width: 24%;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.users-title {
+	color: white;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0px;
+    line-height: 14px;
+	margin-bottom: 2rem;
+}
+
+.users-username {
+	cursor: pointer;
+	margin-bottom: 1rem;
+    color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0.16px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.users-main {
+	cursor: pointer;
+	margin-bottom: 1rem;
+    color: #1ce40a;
+    font-size: 14px;
+    letter-spacing: 0.16px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+

@@ -1,6 +1,6 @@
 .admin-addUser-container {
     background-color: #262626;
-    min-width: 25vw;
+    width: 24%;
     padding: 2%;
 }
 
@@ -55,4 +55,8 @@
     padding: 3% 4%;
     width: 100%;
     text-align: left;
+}
+
+.admin-addUser-container > form > button:hover {
+	background-color: #037ef0;
 }
