@@ -7,6 +7,9 @@ import news from "../../assets/news.json";
 import ReactPaginate from "react-paginate";
 
 export default function NewsBlock() {
+	// const news1 = fetch(`https://parsing-app.onrender.com/news/?limit=${maxNewsOnPage}&skip=20`).then(res => res.json)
+	// console.log(news1)
+
   const optionsSort = [
     { value: "date", label: "Дате" },
     { value: "comments", label: "Комментариям" },

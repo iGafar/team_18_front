@@ -14,7 +14,7 @@ export default function SiteSettings({site, handleSiteToggle}) {
     }
 
     const [sortedTags, setSortedTags] = useState(site.tags.sort((a, b) => a.active === b.active ? 0 : a.active ? -1 : 1))
-    
+
     function toggleTagStatus(tag) {
         setSortedTags(prev => {
             const newList = prev.map(oldTag => {        
