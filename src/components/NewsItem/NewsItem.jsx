@@ -5,8 +5,17 @@ import eye from "../../assets/images/icon-eye.svg";
 import like from "../../assets/images/icon-like.svg";
 import coment from "../../assets/images/icon-coment.svg";
 import sent from "../../assets/images/icon-sent.svg";
+import { useDispatch } from "react-redux";
+import { addToFavorites } from "../../store/slices/favoritesSlice";
+
 export default function News(props) {
   const [hidden, setHidden] = useState(false);
+
+  const dispatch = useDispatch();
+
+  function handleAddToFavorites() {
+    dispatch(addToFavorites({ title: props.title, body: props.body }));
+  }
 
   return (
     <div className="news-item">
@@ -15,19 +24,19 @@ export default function News(props) {
 
       <div className="social">
         <div className="social__item">
-          <img src={eye}></img>
+          <img src={eye} alt="eye"></img>
           <p>5.4K</p>
         </div>
         <div className="social__item">
-          <img src={like}></img>
+          <img src={like} alt="like"></img>
           <p>5.4K</p>
         </div>
         <div className="social__item">
-          <img src={coment}></img>
+          <img src={coment} alt="comment"></img>
           <p>5.4K</p>
         </div>
         <div className="social__item">
-          <img src={sent}></img>
+          <img src={sent} alt="sent"></img>
           <p>5.4K</p>
         </div>
 
@@ -35,6 +44,7 @@ export default function News(props) {
           <img
             className={hidden ? "arrow-img arrow-active" : "arrow-img"}
             src={chevron}
+						alt="chevron"
           ></img>
         </div>
       </div>
@@ -45,7 +55,9 @@ export default function News(props) {
         </div>
       )}
 
-      <button className="button">в избранное</button>
+      <button className="button" onClick={() => handleAddToFavorites()}>
+        в избранное
+      </button>
     </div>
   );
 }

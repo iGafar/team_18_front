@@ -18,5 +18,33 @@
 }
 
 .header__block p {
-  width: 124px;
+  width: fit-content;
+}
+
+.header__block .settings {
+	position: relative;
+	height: 20px;
+}
+
+.header__block .settings:hover {
+	cursor: pointer;
+}
+
+.header__block .settings .settings__param {
+	position: absolute;
+	top: 37px;
+	left: -133px;
+	z-index: 2;
+	background-color: #161616;
+}
+
+.header__block .settings .settings__param p {
+	padding: 13px 14px;
+	width: 163px;
+	border: 2px #161616 solid;
+}
+
+.header__block .settings .settings__param p:hover {
+	border-color: #FF6700;
+	cursor: pointer;
 }

@@ -17,6 +17,10 @@
   margin-bottom: 16px;
 }
 
+.news__loading {
+	margin: auto auto;
+}
+
 .news__pages {
 	display: flex;
 	gap: 10px;

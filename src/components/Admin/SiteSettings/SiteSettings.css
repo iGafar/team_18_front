@@ -69,7 +69,7 @@
 
 .siteSettings-hideAll div {
     display: flex;
-    align-items: end;
+    align-items: flex-end;
 }
 
 .siteSettings-hideAll img {

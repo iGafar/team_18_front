@@ -2,9 +2,9 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import NewsBlock from "../../components/NewsBlock/NewsBlock";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import "./User.css"
+import "./User.css";
 
-export default function admin() {
+export default function User() {
   return (
     <>
       <Header />

@@ -1,14 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import "./NewsBlock.css";
 import trash from "../../assets/images/trash.svg";
 import NewsItem from "../NewsItem/NewsItem";
 import Select from "react-select";
-import news from "../../assets/news.json";
 import ReactPaginate from "react-paginate";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchNews } from "../../store/slices/newsSlice";
 
-export default function NewsBlock() {
-	// const news1 = fetch(`https://parsing-app.onrender.com/news/?limit=${maxNewsOnPage}&skip=20`).then(res => res.json)
-	// console.log(news1)
+const NewsBlock = () => {
+  const dispatch = useDispatch();
+  const newsData = useSelector((state) => state.news);
+  const { news, status, error } = newsData;
+
+  const [searchValue, setSearchValue] = useState("");
+  const [maxNewsOnPage, setMaxNewsOnPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  useEffect(() => {
+    dispatch(fetchNews());
+  }, [dispatch]);
+
+  const startIndex = currentPage * maxNewsOnPage;
+  const endIndex = startIndex + maxNewsOnPage;
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [searchValue, maxNewsOnPage]);
+
+  const filteredNews = useMemo(() => {
+    if (status === "succeeded") {
+      return news.filter(
+        (el) =>
+          el.body.toLowerCase().includes(searchValue.toLowerCase()) ||
+          el.title.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+    return [];
+  }, [news, searchValue, status]);
+
+  const pages = useMemo(() => Math.ceil(filteredNews.length / maxNewsOnPage), [
+    filteredNews,
+    maxNewsOnPage,
+  ]);
 
   const optionsSort = [
     { value: "date", label: "Дате" },
@@ -28,34 +61,17 @@ export default function NewsBlock() {
     { value: "18", label: "18" },
   ];
 
-  const [searchValue, setSearchValue] = useState("");
-  const [maxNewsOnPage, setMaxNewsOnPage] = useState(3);
-  const [filteredNews, setFilteredNews] = useState(news);
-  const [pages, setPages] = useState(Math.ceil(news.length / maxNewsOnPage));
-  const [currentPage, setCurrentPage] = useState(0);
-
   const handlePageChange = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
-    console.log(maxNewsOnPage);
   };
 
-  const startIndex = currentPage * maxNewsOnPage;
-  const endIndex = startIndex + maxNewsOnPage;
+  if (status === "loading") {
+    return <div className="news__loading">Loading news...</div>;
+  }
 
-  useEffect(() => {
-    setCurrentPage(0);
-  }, [searchValue, maxNewsOnPage]);
-
-  useEffect(() => {
-    const filtered = news.filter(
-      (el) =>
-        el.body.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-
-    setFilteredNews(filtered.slice(startIndex, endIndex));
-    setPages(Math.ceil(filtered.length / maxNewsOnPage));
-  }, [searchValue, maxNewsOnPage, currentPage]);
+  if (status === "failed") {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="newsPage">
@@ -87,12 +103,12 @@ export default function NewsBlock() {
               onChange={(option) => setMaxNewsOnPage(Number(option.value))}
             />
             <span>
-              <img src={trash}></img>
+              <img src={trash} alt="Trash Icon"></img>
             </span>
           </div>
         </div>
         <div className="news__block">
-          {filteredNews.map((el) => (
+          {filteredNews.slice(startIndex, endIndex).map((el) => (
             <NewsItem key={el.id} title={el.title} body={el.body} />
           ))}
         </div>
@@ -105,11 +121,12 @@ export default function NewsBlock() {
         previousLabel={null}
         nextLabel={null}
         breakLabel={"..."}
-        forcePage={currentPage}
         onPageChange={handlePageChange}
         containerClassName={"news__paginate"}
         activeClassName={"active"}
       />
     </div>
   );
-}
+};
+
+export default NewsBlock;
