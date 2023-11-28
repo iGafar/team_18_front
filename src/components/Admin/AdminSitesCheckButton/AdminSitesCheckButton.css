@@ -3,7 +3,7 @@
 }
 
 .checkButton-wrapper {
-    width: 25%;
+    width: 24%;
     border: 1px solid #0F62FE;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .sitesList-wrapper {
-    width: 25%;
+    width: 24%;
     background-color: #161616;
     position: absolute;
     border: 1px solid #0F62FE;
@@ -37,6 +37,6 @@
 }
 
 .sitesList-element:hover {
-    background-color: rgba(14, 78, 197, 0.897);
+    background-color: #0b11d866;
     cursor: pointer;
 }
