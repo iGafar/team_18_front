@@ -3,8 +3,10 @@ import logo from "../../assets/images/logo.svg";
 import avatar from "../../assets/images/avatar.svg";
 import settings from "../../assets/images/settings.svg";
 import "./Header.css";
+import {useSelector} from "react-redux"
 
 export default function Header() {
+  const currentUser = useSelector((state) => state.currentUser);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -15,7 +17,7 @@ export default function Header() {
         </div>
         <div className="header__block">
           <img src={avatar}></img>
-          <p>Имя пользователя</p>
+          <p>{currentUser.email}</p>
           <div className="settings">
             <img onClick={() => setIsOpen(!isOpen)} src={settings}></img>
             {isOpen && <div className="settings__param">

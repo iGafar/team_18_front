@@ -19,11 +19,11 @@
 
 .login-logo {
     margin-top: -170px;
-    margin-bottom: -70px;
+    margin-bottom: -50px;
 }
 
 .login-logo > img {
-    width: 30vw;
+    width: 25vw;
 }
 
 .login-form-container {
@@ -74,6 +74,28 @@
     letter-spacing: 0px;
     line-height: 18px;
     background-color: #006ccf;
+    margin-top: 1rem;
+    padding: 3% 4%;
+    width: 100%;
+    text-align: left;
+}
+
+.button-loader {
+    background-color: #262626 !important;
+    border: 1px solid #006ccf;
+}
+
+.login-loader {
+    width: 30%;
+    margin: -20px 0px -25px -7px;
+}
+
+.login-error {
+    color: rgb(255, 90, 90);
+    border: 1px solid red;
+    font-size: 14px;
+    letter-spacing: 0px;
+    line-height: 18px;
     margin-top: 1rem;
     padding: 3% 4%;
     width: 100%;

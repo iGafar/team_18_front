@@ -1,32 +1,83 @@
 import './Login.css'
 import { useDocumentTitle } from "../../hooks/setDocumentTitle"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import loaderGif from "../../assets/images/login/loader.gif";
 import eye from "../../assets/images/login/eye.gif";
 import view from "../../assets/images/login/view.svg";
 import view_off from "../../assets/images/login/view-off.svg";
-
+import serverRequest from '../../functions/loginServerRequest';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from '../../store/slices/currentUserSlice';
 
 
 export default function Login() {
     useDocumentTitle('login');
     const [showPass, setShowPass] = useState(false);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { isLoading, isSuccess, isError, setIsError, sendRequest } = serverRequest()
+
+    async function loginHandler(evt) {
+        evt.preventDefault();
+        const url = "https://parsing-app.onrender.com/auth/jwt/login"
+        const data = {"username": username, "password": password}
+        sendRequest(url, "POST", data);
+    }
+
+    useEffect(() => {
+        if (isSuccess) {
+            console.log("ssssss")
+            dispatch(setCurrentUser({email: username}));
+            navigate('/user');
+        }
+    }, [isSuccess])
 
     return (
         <div className="login-page login-flex">
             <div className="login-main login-flex">
                 <div className="login-logo"><img src={eye} alt=""/></div>
                 <div className="login-form-container">
-                    <form action="">
+                    <form>
                         <label htmlFor="username" className="login-label-text">Логин</label>
-                        <input type="text" id="username" autoComplete="on"/>
+                        <input type="text" 
+                            id="username" 
+                            autoComplete="on" 
+                            value={username} 
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                                setIsError(false)
+                        }}/>
                         <label htmlFor="password" className="login-label-text">Пароль</label>
                         <div className="login-password-container">
-                            <input type={ showPass ? 'text' : 'password' } id="password" autoComplete="on"/>
+                            <input type={ showPass ? 'text' : 'password' } 
+                                id="password" 
+                                autoComplete="on" 
+                                value={password} 
+                                onChange={(e) => {
+                                    setPassword(e.target.value)
+                                    setIsError(false)
+                            }}/>
                             <button id="login-toggle-password" type="button" onClick={() => setShowPass(!showPass)}>
                                 <img src={ showPass ? view_off : view } alt=""/>
                             </button>
                         </div>
-                        <button>ВОЙТИ</button>
+                        {isLoading ?
+                            <button className='button-loader' disabled >
+                                <img className="login-loader" src={loaderGif}/> 
+                            </button>
+                            
+                        :
+                            <button onClick={(evt) => {loginHandler(evt)}}>ВОЙТИ</button>
+                        }
+                        {isError &&
+                            <div className="login-error">
+                                <p>Ошибка авторизации</p>
+                            </div>
+                        }
                     </form>
                 </div>
             </div>
