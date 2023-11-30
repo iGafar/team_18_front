@@ -6,10 +6,10 @@ export default function AdminaddUser() {
     return (
         <div className="admin-addUser-container">
             <form action="">
-                <label htmlFor="username" className="admin-addUser-label">Имя пользователя</label>
-                <input type="text" id="username" autoComplete="on"/>
                 <label htmlFor="email" className="admin-addUser-label">E-mail</label>
-                <input type="email" id="email" autoComplete="on"/>
+                <input type="text" id="email" autoComplete="on"/>
+                <label htmlFor="password" className="admin-addUser-label">Пароль</label>
+                <input type="еуче" id="password" autoComplete="on"/>
                 <h2>Права доступа</h2>
                 <div className="admin-addUser-radio">
                     <div>

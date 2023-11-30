@@ -1,11 +1,11 @@
 import './Login.css'
 import { useDocumentTitle } from "../../hooks/setDocumentTitle"
 import React, { useState, useEffect } from "react";
-import loaderGif from "../../assets/images/login/loader.gif";
+import loaderGif from "../../assets/images/loader.gif";
 import eye from "../../assets/images/login/eye.gif";
 import view from "../../assets/images/login/view.svg";
 import view_off from "../../assets/images/login/view-off.svg";
-import serverRequest from '../../functions/loginServerRequest';
+import postRequest from '../../functions/postRequest';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCurrentUser } from '../../store/slices/currentUserSlice';
@@ -19,7 +19,7 @@ export default function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const { isLoading, isSuccess, isError, setIsError, sendRequest } = serverRequest()
+    const { isLoading, isSuccess, isError, setIsError, sendRequest } = postRequest()
 
     async function loginHandler(evt) {
         evt.preventDefault();
@@ -30,7 +30,6 @@ export default function Login() {
 
     useEffect(() => {
         if (isSuccess) {
-            console.log("ssssss")
             dispatch(setCurrentUser({email: username}));
             navigate('/user');
         }
