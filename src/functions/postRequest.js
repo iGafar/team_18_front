@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function useLoginServerRequest () {
+export default function usePostRequest () {
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -14,7 +14,7 @@ export default function useLoginServerRequest () {
       const fetchArgs = {
         method: method,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': method === "POST" ? 'application/x-www-form-urlencoded' : "application/json"
         }
       }
       if (method==="POST") {
@@ -24,6 +24,8 @@ export default function useLoginServerRequest () {
         }
         formBody = formBody.join("&");
         fetchArgs.body = formBody
+      } else {
+        fetchArgs.body = JSON.stringify(body)
       }
 
       const response = await fetch(url, fetchArgs);
