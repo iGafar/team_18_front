@@ -38,13 +38,13 @@
 	background-color: #161616;
 }
 
-.header__block .settings .settings__param p {
+.header__block .settings .settings__param button {
 	padding: 13px 14px;
 	width: 163px;
 	border: 2px #161616 solid;
 }
 
-.header__block .settings .settings__param p:hover {
+.header__block .settings .settings__param button:hover {
 	border-color: #FF6700;
 	cursor: pointer;
 }

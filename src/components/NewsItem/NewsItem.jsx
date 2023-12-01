@@ -14,12 +14,12 @@ export default function News(props) {
   const dispatch = useDispatch();
 
   function handleAddToFavorites() {
-    dispatch(addToFavorites({ title: props.title, body: props.body }));
+    dispatch(addToFavorites({ title: props.title, text: props.text }));
   }
 
   return (
     <div className="news-item">
-      <div className="date">13.11.2023 10-00</div>
+      <div className="date">{props.date}</div>
       <div className="title">{props.title}</div>
 
       <div className="social">
@@ -29,7 +29,7 @@ export default function News(props) {
         </div>
         <div className="social__item">
           <img src={like} alt="like"></img>
-          <p>5.4K</p>
+          <p>{props.like.like}</p>
         </div>
         <div className="social__item">
           <img src={coment} alt="comment"></img>
@@ -51,7 +51,7 @@ export default function News(props) {
 
       {hidden && (
         <div className="text">
-          <p>{props.body}</p>
+          <p>{props.text}</p>
         </div>
       )}
 

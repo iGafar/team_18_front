@@ -1,5 +1,6 @@
 .news-filter{
     background-color: #272728;
+		width: 332px;
 }
 
 .news-source-item {
@@ -8,11 +9,11 @@
 }
 
 .accordion-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    justify-content: center;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+		width: 100%;
+		border: 2px solid var(--light-blue, #006CCF);
 }
 
 .accordion-radio {

@@ -21,10 +21,10 @@ export default function Header() {
           <div className="settings">
             <img onClick={() => setIsOpen(!isOpen)} src={settings}></img>
             {isOpen && <div className="settings__param">
-							<p>Изменить иконку</p>
-							<p>Изменить имя</p>
-							<p>Изменить пароль</p>
-							<p>Выйти</p>
+							<button>Изменить иконку</button>
+							<button>Изменить имя</button>
+							<button>Изменить пароль</button>
+							<button>Выйти</button>
 						</div> }
           </div>
         </div>

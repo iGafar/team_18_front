@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
   try {
-    const response = await fetch('https://65635497ee04015769a710fa.mockapi.io/news');
+    const response = await fetch('https://parsing-app.onrender.com/news/?limit=10&skip=0');
     const jsonData = await response.json();
     return jsonData;
   } catch (error) {

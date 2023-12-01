@@ -1,5 +1,6 @@
 .favourites-container {
     display: flex;
+		width: 332px;
     padding: 24px;
     flex-direction: column;
     align-items: center;

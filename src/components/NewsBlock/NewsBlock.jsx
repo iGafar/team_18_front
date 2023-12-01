@@ -31,7 +31,7 @@ const NewsBlock = () => {
     if (status === "succeeded") {
       return news.filter(
         (el) =>
-          el.body.toLowerCase().includes(searchValue.toLowerCase()) ||
+          el.text.toLowerCase().includes(searchValue.toLowerCase()) ||
           el.title.toLowerCase().includes(searchValue.toLowerCase())
       );
     }
@@ -109,7 +109,7 @@ const NewsBlock = () => {
         </div>
         <div className="news__block">
           {filteredNews.slice(startIndex, endIndex).map((el) => (
-            <NewsItem key={el.id} title={el.title} body={el.body} />
+            <NewsItem key={el.id} title={el.title} text={el.text} date={el.date} like={el} />
           ))}
         </div>
       </div>
