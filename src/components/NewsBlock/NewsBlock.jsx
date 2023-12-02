@@ -4,6 +4,7 @@ import NewsItem from "../NewsItem/NewsItem";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "../../store/slices/newsSlice";
+import { addToFavorites } from "../../store/slices/favoritesSlice";
 import NewsHead from "../NewsHead/NewsHead";
 
 const NewsBlock = () => {
@@ -25,6 +26,10 @@ const NewsBlock = () => {
   useEffect(() => {
     setCurrentPage(0);
   }, [searchValue, maxNewsOnPage]);
+
+  const handleAddToFavorites = (newsItem) => {
+    dispatch(addToFavorites(newsItem.id));
+  };
 
   const filteredNews = useMemo(() => {
     if (status === "succeeded") {
@@ -65,15 +70,15 @@ const NewsBlock = () => {
 
         <div className="news__block">
           {filteredNews.slice(startIndex, endIndex).map((el) => (
-            <NewsItem key={el.id} el={el} />
+            <NewsItem key={el.id} el={el} onAddToFavorites={() => handleAddToFavorites(el)} />
           ))}
         </div>
       </div>
 
       <ReactPaginate
-        pageCount={pages} // Общее количество страниц
-        pageRangeDisplayed={4} // Количество отображаемых страниц внутри пагинации
-        marginPagesDisplayed={1} // Количество отображаемых страниц на краях пагинации
+        pageCount={pages}
+        pageRangeDisplayed={4}
+        marginPagesDisplayed={1}
         previousLabel={null}
         nextLabel={null}
         breakLabel={"..."}

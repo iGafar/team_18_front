@@ -8,14 +8,14 @@ import sent from "../../assets/images/icon-sent.svg";
 import { useDispatch } from "react-redux";
 import { addToFavorites } from "../../store/slices/favoritesSlice";
 
-export default function News({ el }) {
+export default function News({ el, onAddToFavorites }) {
   const [hidden, setHidden] = useState(false);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  function handleAddToFavorites() {
-    dispatch(addToFavorites({ title: el.title, text: el.text }));
-  }
+  // function handleAddToFavorites() {
+  //   dispatch(addToFavorites({ title: el.title, text: el.text }));
+  // }
 
   return (
     <div className="news-item">
@@ -64,7 +64,7 @@ export default function News({ el }) {
         </div>
       )}
 
-      <button className="button" onClick={() => handleAddToFavorites()}>
+      <button className="button" onClick={() => onAddToFavorites(el)}>
         в избранное
       </button>
     </div>
