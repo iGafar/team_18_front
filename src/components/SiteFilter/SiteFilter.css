@@ -30,6 +30,31 @@
     margin-right: 1rem;
 }
 
+.sites-data-container{
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+}
+
+.site-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Adjust as needed */
+}
+
+.site-title {
+    color: #FFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 100% */
+}
+
+.site-checkbox {
+    /* Additional styling for the checkbox if needed */
+}
+
+/* Style for rotating the arrow */
 .data-filters {
     margin-top: 20px;
 }
