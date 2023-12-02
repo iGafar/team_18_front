@@ -12,8 +12,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-		width: 100%;
-		border: 2px solid var(--light-blue, #006CCF);
+    width: 100%;
+    border: 2px solid var(--light-blue, #006CCF);
+}
+
+
+.accordion-header img {
+    grid-column: 3;
+    justify-self: end;
 }
 
 .accordion-radio {
@@ -45,9 +51,14 @@
 }
 
 .tags-container {
+    margin-top: 1rem;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+.tags-container button{
+    padding-left: 3px;
 }
 
 .tag-blue {
@@ -60,17 +71,6 @@
     font-size: 14px;
 }
 
-.tag button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: 16px;
-    color: #ffffff;
-}
-
-.tag span {
-    padding-right: 1rem;
-}
 
 .tag-white {
     display: flex;

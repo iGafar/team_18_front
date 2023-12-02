@@ -14,7 +14,7 @@ export default function Favourites() {
                </div>
            </div>
 
-           <div className="user">
+           <div className="favourites-user">
                <div className="toggle">
                    <img src={toggleOn}></img>
                </div>
