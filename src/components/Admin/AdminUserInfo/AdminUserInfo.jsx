@@ -57,10 +57,10 @@ export default function AdminUserInfo({initialUser}) {
                 <p className='adminUserInfo-property-title'>Права доступа:</p>
                 <div className='adminUserInfo-property-string'>
                     {showEditWindow[2] ? 
-                        <UserEdit user={user} setUser={setUser} prop={user.is_admin} toggleFunc={toggleEditButton} elIndex={2}/>
+                        <UserEdit user={user} setUser={setUser} prop={user.is_superuser} toggleFunc={toggleEditButton} elIndex={2}/>
                     :
                         <>
-                        <p className='adminUserInfo-property-name'>{user.is_admin ? "главный редактор" : "редактор"}</p>
+                        <p className='adminUserInfo-property-name'>{user.is_superuser ? "главный редактор" : "редактор"}</p>
                         <button className='adminUserInfo-property-button' onClick={()=>{toggleEditButton(2)}}>
                             <img src={ editImage } alt="" />
                         </button>

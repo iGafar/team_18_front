@@ -18,31 +18,9 @@ export const fetchFavorites = createAsyncThunk(
 const favoritesSlice = createSlice({
   name: "favorites",
   initialState: {
-    items: [
-			{
-				"text": "text",
-				"title": "news1",
-				"date": "26.11.2023 08-41",
-				"like": 0,
-				"site_id": 1,
-				"id": 1,
-				"is_favourite": false,
-				"url": "news1 url",
-				"repost": 0,
-				"category_list": [
-					{
-						"id": 1,
-						"is_active": true,
-						"title": "cat1"
-					},
-					{
-						"id": 2,
-						"is_active": true,
-						"title": "cat2"
-					}
-				],
-				"comments_list": []
-			},] // Сюда будут добавляться избранные элементы
+    items: [], // Сюда будут добавляться избранные элементы
+    status: "idle", // Добавлено начальное значение для статуса
+    error: null, // Добавлено начальное значение для ошибки
   },
   reducers: {
     addToFavorites: (state, action) => {
@@ -62,7 +40,8 @@ const favoritesSlice = createSlice({
       })
       .addCase(fetchFavorites.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.news = action.payload;
+				console.log(action.payload);
+        state.items = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchFavorites.rejected, (state, action) => {
         state.status = "failed";

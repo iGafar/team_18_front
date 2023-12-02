@@ -28,7 +28,7 @@ const newsSlice = createSlice({
       })
       .addCase(fetchNews.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.news = action.payload;
+        state.news = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchNews.rejected, (state, action) => {
         state.status = 'failed';
