@@ -4,6 +4,7 @@ import NewsItem from "../NewsItem/NewsItem";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "../../store/slices/newsSlice";
+import { fetchFavorites } from "../../store/slices/favoritesSlice";
 import { addToFavorites } from "../../store/slices/favoritesSlice";
 import NewsHead from "../NewsHead/NewsHead";
 
@@ -70,7 +71,11 @@ const NewsBlock = () => {
 
         <div className="news__block">
           {filteredNews.slice(startIndex, endIndex).map((el) => (
-            <NewsItem key={el.id} el={el} onAddToFavorites={() => handleAddToFavorites(el)} />
+            <NewsItem
+              key={el.id}
+              el={el}
+              onAddToFavorites={() => handleAddToFavorites(el)}
+            />
           ))}
         </div>
       </div>

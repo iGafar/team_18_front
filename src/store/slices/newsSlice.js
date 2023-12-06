@@ -19,7 +19,19 @@ const initialState = {
 const newsSlice = createSlice({
   name: 'news',
   initialState,
-  reducers: {},
+  reducers: {
+		fetchNewsSuccess: (state, action) => {
+      state.status = "succeeded";
+      state.news = action.payload;
+    },
+    addToFavoritesSuccess: (state, action) => {
+      const newsItemId = action.payload;
+      const newsItem = state.news.find((item) => item.id === newsItemId);
+      if (newsItem) {
+        newsItem.isFavorite = true; // Предполагаем, что у вас есть поле isFavorite в элементе новости
+      }
+    },
+	},
   extraReducers: (builder) => {
     builder
       .addCase(fetchNews.pending, (state) => {
@@ -37,4 +49,5 @@ const newsSlice = createSlice({
   },
 });
 
+export const { fetchNewsSuccess, addToFavoritesSuccess } = newsSlice.actions;
 export default newsSlice.reducer;

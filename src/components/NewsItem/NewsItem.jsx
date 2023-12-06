@@ -11,11 +11,9 @@ import { addToFavorites } from "../../store/slices/favoritesSlice";
 export default function News({ el, onAddToFavorites }) {
   const [hidden, setHidden] = useState(false);
 
-  // const dispatch = useDispatch();
-
-  // function handleAddToFavorites() {
-  //   dispatch(addToFavorites({ title: el.title, text: el.text }));
-  // }
+  function handleAddToFavorites(el) {
+    onAddToFavorites(el);
+  }
 
   return (
     <div className="news-item">
@@ -64,8 +62,8 @@ export default function News({ el, onAddToFavorites }) {
         </div>
       )}
 
-      <button className="button" onClick={() => onAddToFavorites(el)}>
-        в избранное
+      <button className="button" onClick={() => handleAddToFavorites(el)}>
+        { el.is_favourite ? "В избранном" : "В избранное" }
       </button>
     </div>
   );

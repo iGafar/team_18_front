@@ -27,13 +27,20 @@ const FavoritesNews = () => {
     setCurrentPage(0);
   }, [searchValue, maxNewsOnPage]);
 
+  const handlePageChange = (selectedPage) => {
+		setCurrentPage(selectedPage.selected);
+  };
+
   const filteredNews = useMemo(() => {
     if (status === "succeeded") {
-      return items.filter(
-        (el) =>
-          el.text.toLowerCase().includes(searchValue.toLowerCase()) ||
-          el.title.toLowerCase().includes(searchValue.toLowerCase())
-      );
+      return items.filter((el) => {
+        const lowercaseText = el.text?.toLowerCase() || "";
+        const lowercaseTitle = el.title?.toLowerCase() || "";
+        return (
+          lowercaseText.includes(searchValue.toLowerCase()) ||
+          lowercaseTitle.includes(searchValue.toLowerCase())
+        );
+      });
     }
     return [];
   }, [items, searchValue, status]);
@@ -42,10 +49,6 @@ const FavoritesNews = () => {
     () => Math.ceil(filteredNews.length / maxNewsOnPage),
     [filteredNews, maxNewsOnPage]
   );
-
-  const handlePageChange = (selectedPage) => {
-    setCurrentPage(selectedPage.selected);
-  };
 
   if (status === "loading") {
     return <div className="news__loading">Loading favorites...</div>;
@@ -72,9 +75,9 @@ const FavoritesNews = () => {
       </div>
 
       <ReactPaginate
-        pageCount={pages} // Общее количество страниц
-        pageRangeDisplayed={4} // Количество отображаемых страниц внутри пагинации
-        marginPagesDisplayed={1} // Количество отображаемых страниц на краях пагинации
+        pageCount={pages}
+        pageRangeDisplayed={4}
+        marginPagesDisplayed={1}
         previousLabel={null}
         nextLabel={null}
         breakLabel={"..."}

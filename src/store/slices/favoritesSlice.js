@@ -17,24 +17,32 @@ export const fetchFavorites = createAsyncThunk(
 
 export const addToFavorites = createAsyncThunk(
   "favorites/addToFavorites",
-  async (newsItemId) => {
+  async (newsItemId, thunkAPI) => {
     try {
-      const response = await fetch(`https://parsing-app.onrender.com/news/id/${newsItemId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ newsItemId }),
-      });
+      const { title, text } = thunkAPI.getState().news.news.find(item => item.id === newsItemId);
+      const response = await fetch(
+        `https://parsing-app.onrender.com/news/id/${newsItemId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: title,
+            text: text,
+            is_favourite: true,
+          }),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to add to favorites');
+        throw new Error("Failed to add to favorites");
       }
 
-      console.log('Added to favorites successfully');
+      console.log("Added to favorites successfully");
       return newsItemId;
     } catch (error) {
-      console.error('Error adding to favorites:', error.message);
+      console.error("Error adding to favorites:", error.message);
       throw error;
     }
   }
