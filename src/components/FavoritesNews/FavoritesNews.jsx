@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "../NewsBlock/NewsBlock.css";
-import trash from "../../assets/images/trash.svg";
 import NewsItem from "../NewsItem/NewsItem";
-import Select from "react-select";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchFavorites } from "../../store/slices/favoritesSlice";
+import { fetchFavorites, removeFromFavorites } from "../../store/slices/favoritesSlice";
 import NewsHead from "../NewsHead/NewsHead";
 
 const FavoritesNews = () => {
@@ -29,6 +27,10 @@ const FavoritesNews = () => {
 
   const handlePageChange = (selectedPage) => {
 		setCurrentPage(selectedPage.selected);
+  };
+
+  const handleRemoveFromFavorites = (newsItem) => {
+    dispatch(removeFromFavorites(newsItem.id));
   };
 
   const filteredNews = useMemo(() => {
@@ -69,7 +71,7 @@ const FavoritesNews = () => {
 
         <div className="news__block">
           {filteredNews.slice(startIndex, endIndex).map((el) => (
-            <NewsItem key={el.id} el={el} />
+            <NewsItem onRemoveFromFavorites={() => handleRemoveFromFavorites(el)} type="favorite" key={el.id} el={el} />
           ))}
         </div>
       </div>

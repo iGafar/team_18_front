@@ -4,7 +4,6 @@ import NewsItem from "../NewsItem/NewsItem";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchNews } from "../../store/slices/newsSlice";
-import { fetchFavorites } from "../../store/slices/favoritesSlice";
 import { addToFavorites } from "../../store/slices/favoritesSlice";
 import NewsHead from "../NewsHead/NewsHead";
 

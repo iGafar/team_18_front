@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { addToFavorites } from './favoritesSlice'
 
 export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
   try {
@@ -19,19 +20,7 @@ const initialState = {
 const newsSlice = createSlice({
   name: 'news',
   initialState,
-  reducers: {
-		fetchNewsSuccess: (state, action) => {
-      state.status = "succeeded";
-      state.news = action.payload;
-    },
-    addToFavoritesSuccess: (state, action) => {
-      const newsItemId = action.payload;
-      const newsItem = state.news.find((item) => item.id === newsItemId);
-      if (newsItem) {
-        newsItem.isFavorite = true; // Предполагаем, что у вас есть поле isFavorite в элементе новости
-      }
-    },
-	},
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchNews.pending, (state) => {
@@ -45,9 +34,12 @@ const newsSlice = createSlice({
       .addCase(fetchNews.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(addToFavorites.fulfilled, (state, action) => {
+        const index = state.news.findIndex(item => item.id === action.payload);
+        state.news[index].is_favourite = true
       });
   },
 });
 
-export const { fetchNewsSuccess, addToFavoritesSuccess } = newsSlice.actions;
 export default newsSlice.reducer;
