@@ -8,18 +8,25 @@ import AdminSitesCheckButton from "../../components/Admin/AdminSitesCheckButton/
 import SiteSettings from "../../components/Admin/SiteSettings/SiteSettings";
 import './Admin.css'
 import { useState, useEffect } from "react";
-import sitesList from "../../components/Admin/mock/sites.json"
+// import sitesList from "../../components/Admin/mock/sites.json"
 import { useDocumentTitle } from "../../hooks/setDocumentTitle";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import getRequest from '../../functions/getRequest';
-import postRequest from '../../functions/postRequest';
 import loaderGif from "../../assets/images/loader.gif";
-import getSiteSettingsList from "../../functions/getSitesAndTags"
+// import useGetSiteSettingsList from "../../functions/getSitesAndTags"
+// import { fetchSitesAndNews } from '../../store/slices/sitesAndNewsSlice';
+import { setSites } from '../../store/slices/sitesSettingsMock';
+import { loadState, saveState } from '../../functions/localStorage'
+
 
 
 function CheckCurrentUserAccessPermissions(currentUser) {
   const navigate = useNavigate();
+  console.log("currentUser", currentUser)
+  
+  if (!currentUser?.email) {navigate('/access-denied');}
+  
   const { isLoading, data, sendRequest } = getRequest()
 
   useEffect(() => {
@@ -27,9 +34,8 @@ function CheckCurrentUserAccessPermissions(currentUser) {
   }, [currentUser.email])
 
   useEffect(() => {
-    if (data.hasOwnProperty('is_admin') && !data.is_admin) {
+    if (data.hasOwnProperty('is_superuser') && !data.is_superuser) {
       navigate('/access-denied');
-      return;
     }
   }, [data]);
   
@@ -48,33 +54,37 @@ function GetUsersList() {
 }
 
 
-export default function Admin() {
+export default function Admin() {  // --------------------------------------------------------------- //
+  useDocumentTitle("Admin");
+
   const currentUser = useSelector((state) => state.currentUser);
   const { currentUserCheckLoading } = CheckCurrentUserAccessPermissions(currentUser);
   const { usersList, usersListLoading } = GetUsersList();
-
-  getSiteSettingsList()
-
-  useDocumentTitle("Admin");
-
-  const [selectedSites, setSelectedSites] = useState(sitesList.sites.filter(s => s.active));
   const [selectedUser, setSelectedUser] = useState(null)
 
   useEffect(() => {
     setSelectedUser(usersList.map((u)=>{if (u.email === currentUser.email){return u}})[0])
   }, [usersList]);
 
-  function selectUser(user) {
-    setSelectedUser(user);
-  }
+  const dispatch = useDispatch();
+  const sitesList = useSelector((state) => state.sites.sites);
+  const [selectedSites, setSelectedSites] = useState(sitesList.filter(s => s.active));
 
   function handleSiteToggle(site) {
-    if (selectedSites.includes(site)) {
-      setSelectedSites(selectedSites.filter(s => s !== site));
-    } else {
-      setSelectedSites([...selectedSites, site]);
-    }
-  };
+    setSelectedSites(prevSites => {
+      if (prevSites.some(s => s.name == site.name)) {
+        return prevSites.filter(s => s.name != site.name);
+      } else {return [...prevSites, site];}
+    });
+
+    let updatedSitesList = sitesList.map((s) => {
+      if (s.name === site.name) {return {...s, active: !s.active}}
+      else {return s}
+    })
+  
+    saveState({ ...loadState(), sites: updatedSitesList });
+    dispatch(setSites(updatedSitesList));
+  }
 
   return (
     <>
@@ -87,7 +97,7 @@ export default function Admin() {
               <AdminAddUser />
               {/* <UsersList usersList={usersList.users} selectUser={selectUser} selectedUser={selectedUser}/> */}
               {usersListLoading || !usersList.length  ? <img src={loaderGif} alt=""/> :
-                <UsersList usersList={usersList} selectUser={selectUser} selectedUser={selectedUser}/>
+                <UsersList usersList={usersList} selectUser={(user) => setSelectedUser(user)} selectedUser={selectedUser}/>
               }
               
               {selectedUser ? <AdminUserInfo initialUser={selectedUser} /> : <div>Loading...</div>}
@@ -96,10 +106,10 @@ export default function Admin() {
             </div>
           </div>
           <div className="container">
-            <AdminSitesCheckButton handleSiteToggle={handleSiteToggle} siteList={sitesList.sites}/>
+            <AdminSitesCheckButton handleSiteToggle={handleSiteToggle} siteList={sitesList}/>
             <div className="admin__bottom__block">
               {selectedSites.map((site, index) => (
-                  site.active && <SiteSettings site={site} key={index} handleSiteToggle={handleSiteToggle}/>
+                  <SiteSettings site={site} key={index} handleSiteToggle={handleSiteToggle} siteList={sitesList}/>
               ))}
             </div>
           </div>

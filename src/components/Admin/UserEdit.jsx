@@ -7,7 +7,7 @@ import postRequest from "../../functions/postRequest"
 
 export default function UserEdit({user, setUser, prop, toggleFunc, elIndex}) {
     const [emailInput, setEmailInput] = useState(user.email);
-    const [isAdmin, setIsAdmin] = useState(user.is_admin);
+    const [isAdmin, setIsAdmin] = useState(user.is_superuser);
     
     const inputRef = useRef(null);
 
@@ -19,8 +19,8 @@ export default function UserEdit({user, setUser, prop, toggleFunc, elIndex}) {
 
     function accept(evt) {
         evt.preventDefault();
-        const newData = {is_admin: isAdmin}
-        if (user.is_admin != newData.is_admin) {
+        const newData = {is_superuser: isAdmin}
+        if (user.is_superuser != newData.is_superuser) {
             sendRequest(`https://parsing-app.onrender.com/user/email/${user.email}`, "PATCH", newData)
                 .then(()=> {
                     const newUser = {...user}
@@ -54,11 +54,11 @@ export default function UserEdit({user, setUser, prop, toggleFunc, elIndex}) {
                 <>
                     <div>
                         <label htmlFor="edit_main_editor">главный редактор</label>
-                        <input className="radioInput" type="radio" id="edit_main_editor" name='edit_editor_choice' defaultChecked={user.is_admin} onClick={() => setIsAdmin(true)}/>
+                        <input className="radioInput" type="radio" id="edit_main_editor" name='edit_editor_choice' defaultChecked={user.is_superuser} onClick={() => setIsAdmin(true)}/>
                     </div>
                     <div>
                         <label htmlFor="edit_editor">редактор</label>
-                        <input className="radioInput" type="radio" id="edit_editor"  name='edit_editor_choice' defaultChecked={!user.is_admin}  onClick={() => setIsAdmin(false)}/>
+                        <input className="radioInput" type="radio" id="edit_editor"  name='edit_editor_choice' defaultChecked={!user.is_superuser}  onClick={() => setIsAdmin(false)}/>
                     </div>
                 </>
             }

@@ -2,18 +2,35 @@ import "./SiteSettings.css"
 import Tag from "../../Tags/Tags";
 import chevron from "../../../assets/images/chevron.svg";
 import { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { setSites } from '../../../store/slices/sitesSettingsMock';
+import { loadState, saveState } from '../../../functions/localStorage'
 
 
-
-export default function SiteSettings({site, handleSiteToggle}) {
+export default function SiteSettings({site, handleSiteToggle, siteList}) {
     const [showAllTags, setShowAllTags] = useState(false)
+    const [sortedTags, setSortedTags] = useState(site.tags.slice().sort((a, b) => a.active === b.active ? 0 : a.active ? -1 : 1))
+    const [sitesList, setSitesList] = useState(siteList)
 
-    function deleteSiteButtonHandler() {
-        site.active = false
-        handleSiteToggle(site)
+    function activeteAllTags() {
+        setSortedTags(prev => {
+            return prev.map(oldTag => (oldTag.active ? oldTag : {...oldTag, active:true}))
+        })
     }
 
-    const [sortedTags, setSortedTags] = useState(site.tags.sort((a, b) => a.active === b.active ? 0 : a.active ? -1 : 1))
+    const dispatch = useDispatch();
+
+    function UpdateSitesInStore(site, tag) {
+        const newSitesList = sitesList.map((s) => {
+            if (s.name == site.name) {
+                return {...s, tags: s.tags.map(t => t.name === tag.name ? {...t, active: !t.active} : t)};
+            }
+            return {...s}
+        })
+        setSitesList(newSitesList)
+        dispatch(setSites(newSitesList));
+    }
+
 
     function toggleTagStatus(tag) {
         setSortedTags(prev => {
@@ -23,12 +40,7 @@ export default function SiteSettings({site, handleSiteToggle}) {
                 });
             return newList.sort((a, b) => a.active === b.active ? 0 : a.active ? -1 : 1);
         })
-    }
-
-    function activeteAllTags() {
-        setSortedTags(prev => {
-            return prev.map(oldTag => (oldTag.active ? oldTag : {...oldTag, active:true}))
-        })
+        UpdateSitesInStore(site, tag)
     }
 
     return (
@@ -61,13 +73,12 @@ export default function SiteSettings({site, handleSiteToggle}) {
                                     <div><img src={ chevron } alt="" /></div>
                                 </button>
                                 }
-
                             </>
                         }
 
                     </div>
                 </div>
-                <button onClick={deleteSiteButtonHandler}>Удалить</button>
+                <button onClick={() => handleSiteToggle(site)}>Удалить</button>
             </div>
         </div>
     )

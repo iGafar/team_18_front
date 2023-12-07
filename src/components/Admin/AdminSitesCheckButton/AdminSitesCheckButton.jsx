@@ -11,11 +11,6 @@ import { useState } from "react";
 export default function AdminSitesCheckButton({handleSiteToggle, siteList}) {
     const [showSites, setShowSites] = useState(false)
 
-    function siteClick(site) {
-        site.active = !site.active
-        handleSiteToggle(site)
-    }
-
     return (
         <div className="checkSites-container">
             <div className="checkButton-wrapper" onClick={() => {setShowSites(!showSites)}}>
@@ -28,7 +23,7 @@ export default function AdminSitesCheckButton({handleSiteToggle, siteList}) {
             <div className="sitesList-wrapper">
 
                 {siteList.map((site, index) => (
-                    <div className="sitesList-element" key={index} onClick={() => siteClick(site)}>
+                    <div className="sitesList-element" key={index} onClick={() => handleSiteToggle(site)}>
                         <div className="sitesList-checkbox">
                             <img src={ site.active ? checkbox_checked : checkbox } alt="" />
                         </div>

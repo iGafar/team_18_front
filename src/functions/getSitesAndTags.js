@@ -6,29 +6,37 @@ function GetSitesList() {
     const { isLoading, data, sendRequest } = getRequest()
     const [sitesList, setSitesList] = useState([])
     
-    useEffect(() => {sendRequest(`https://parsing-app.onrender.com/user`)}, [])
-  
-    useEffect(() => {setSitesList(Array.from(data))}, [data])
+    useEffect(() => {sendRequest(`https://parsing-app.onrender.com/site`)}, [])
+    useEffect(() => {
+        if (data) {setSitesList(data)}
+        console.log("GetSitesList", sitesList)
+    }, [data])
     
-    console.log(sitesList)
-  
-    // return {usersList, usersListLoading: isLoading}
+    return {sitesListqq:sitesList, setSitesList, sitesListLoading: isLoading}
 }
 
 function GetNewsList() {
     const { isLoading, data, sendRequest } = getRequest()
     const [newsList, setNewsList] = useState([])
     
-    useEffect(() => {sendRequest(`https://parsing-app.onrender.com/user`)}, [])
+    useEffect(() => {sendRequest(`https://parsing-app.onrender.com/news`)}, [])
+    useEffect(() => {
+        setNewsList(data); 
+        console.log("newsListnewsList", newsList)
+    }, [data])
   
-    useEffect(() => {setNewsList(Array.from(data))}, [data])
-    
-    console.log(newsList)
-  
-    // return {usersList, usersListLoading: isLoading}
+    return {newsList, newsListLoading: isLoading}
 }
 
-export default function getSiteSettingsList() {
-    GetSitesList()
-    GetNewsList()
+export default function useGetSiteSettingsList() {
+    const {sitesList, setSitesList, sitesListLoading} = GetSitesList()
+    // const {newsListqq, newsListLoading} = await GetNewsList()
+
+    // useEffect(() => {
+    //     if(sitesList) {
+    //         return {sitesList}
+    //     }
+    // }, [sitesListqq])
+
+    return {sitesList, sitesListLoading}
 }

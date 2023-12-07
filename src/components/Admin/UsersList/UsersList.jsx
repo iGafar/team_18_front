@@ -12,7 +12,7 @@ export default function UsersList({usersList, selectUser, selectedUser}) {
 						>
 							<p>
 								{user.email}&ensp;
-								{user.is_admin ? "🔥" : ""}
+								{user.is_superuser ? "🔥" : ""}
 							</p>
 						</div>
 					)}
