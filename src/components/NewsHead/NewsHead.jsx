@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./NewsHead.css";
 import Select from "react-select";
+import trash from "../../assets/images/trash.svg";
 
 const optionsSort = [
   { value: "date", label: "Дате" },
@@ -8,7 +9,6 @@ const optionsSort = [
   { value: "reposts", label: "Репостам" },
   { value: "likes", label: "Лайкам" },
   { value: "views", label: "Просмотрам" },
-  { value: "all", label: "Все параметры" },
 ];
 
 const optionsNumber = [
@@ -53,9 +53,9 @@ export default function NewsHead({
             defaultValue={optionsNumber[0]}
             onChange={(option) => setMaxNewsOnPage(Number(option.value))}
           />
-          {/* <span>
+          <span>
             <img src={trash} alt="Trash Icon"></img>
-          </span> */}
+          </span>
         </div>
       </div>
     </>

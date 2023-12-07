@@ -26,10 +26,16 @@
 	gap: 10px;
 }
 
+.news__block-container {
+	flex: 1;
+}
+
 .news__block {
   display: flex;
-  gap: 16px;
+	justify-content: space-between;
+	gap: 16px;
   flex-wrap: wrap;
+	overflow: auto;
 }
 
 .news-select__control {

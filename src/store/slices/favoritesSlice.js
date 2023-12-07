@@ -17,11 +17,11 @@ export const fetchFavorites = createAsyncThunk(
 
 export const addToFavorites = createAsyncThunk(
   "favorites/addToFavorites",
-  async (newsItemId, thunkAPI) => {
+  async (newsItem) => {
     try {
-      const { title, text } = thunkAPI.getState().news.news.find(item => item.id === newsItemId);
+      const { title, text } = newsItem;
       const response = await fetch(
-        `https://parsing-app.onrender.com/news/id/${newsItemId}`,
+        `https://parsing-app.onrender.com/news/id/${newsItem.id}`,
         {
           method: "PATCH",
           headers: {
@@ -40,7 +40,7 @@ export const addToFavorites = createAsyncThunk(
       }
 
       console.log("Added to favorites successfully");
-      return newsItemId;
+      return newsItem.id;
     } catch (error) {
       console.error("Error adding to favorites:", error.message);
       throw error;
@@ -50,11 +50,11 @@ export const addToFavorites = createAsyncThunk(
 
 export const removeFromFavorites = createAsyncThunk(
   "favorites/removeFromFavorites",
-  async (newsItemId, thunkAPI) => {
+  async (newsItem) => {
     try {
-      const { title, text } = thunkAPI.getState().news.news.find(item => item.id === newsItemId);
+      const { title, text } = newsItem;
       const response = await fetch(
-        `https://parsing-app.onrender.com/news/id/${newsItemId}`,
+        `https://parsing-app.onrender.com/news/id/${newsItem.id}`,
         {
           method: "PATCH",
           headers: {
@@ -71,9 +71,7 @@ export const removeFromFavorites = createAsyncThunk(
       if (!response.ok) {
         throw new Error("Failed to remove from favorites");
       }
-
-      console.log("Removed from favorites successfully");
-      return newsItemId;
+      return newsItem.id;
     } catch (error) {
       console.error("Error remove from favorites:", error.message);
       throw error;
@@ -105,8 +103,10 @@ const favoritesSlice = createSlice({
       })
       .addCase(removeFromFavorites.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const index = state.items.findIndex(item => item.id === action.payload);
-        state.items.splice(index, 1)
+        const index = state.items.findIndex(
+          (item) => item.id === action.payload
+        );
+        state.items.splice(index, 1);
       })
       .addCase(removeFromFavorites.rejected, (state, action) => {
         state.status = "failed";
