@@ -46,11 +46,12 @@
 
 .button {
   height: 40px;
-  width: 100%;
+  width: 30%;
   background-color: #006ccf;
   text-transform: uppercase;
   padding: 0 16px;
-  text-align: start;
+  text-align: center;
+	margin-left: auto;
 }
 
 .button:hover {

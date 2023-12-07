@@ -10,6 +10,7 @@ const persistedState = loadState();
 const store = configureStore({
   reducer: {
     news: newsSlice,
+    sites: sitesSlice,
     favorites: favoritesSlice,
     currentUser: currentUserSlice,
     sites: sitesSlice,

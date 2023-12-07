@@ -1,30 +1,41 @@
 .sidebar {
-    width: 300px;
-    margin-right: 1rem;
+  width: 332px;
+  margin-right: 1rem;
 }
 
 .tab-button-container {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+	width: 100%;
 }
 
 .tab-button {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    flex: 1;
-    flex-direction: column;
-    padding: 10px 14px;
-    border-top: 4px solid transparent;
-    color: #8D8D8D;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  width: calc(100% / 3);
+  flex: 1;
+  flex-direction: column;
+  padding: 10px 14px;
+  border-top: 4px solid transparent;
+  color: #8d8d8d;
+}
+
+.tab-button:hover {
+  cursor: pointer;
+  background-color: #313132;
 }
 
 .button-clicked {
-    border-top: 4px solid #006CCF;
-    background-color: #272728;
-    color: #FFF;
+  border-top: 4px solid #006ccf;
+  background-color: #272728;
+  color: #fff;
 }
 
 .tab-button img {
-    width: 20px;
+  width: 20px;
+}
+
+.news-filter, .favourites-container, .scenarios-container {
+	width: 100%;
 }

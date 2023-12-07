@@ -7,8 +7,7 @@ import search from "../../assets/images/search.svg";
 import Favourites from "../Favourites/Favourites";
 import Scenarios from "../Scenarios/Scenarios";
 
-export default function Sidebar() {
-    const [activeTab, setActiveTab] = useState('search');
+export default function Sidebar({activeTab, setActiveTab}) {
 
     const handleTabClick = (tabName) => {
         setActiveTab(tabName);

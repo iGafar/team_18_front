@@ -5,59 +5,82 @@ import eye from "../../assets/images/icon-eye.svg";
 import like from "../../assets/images/icon-like.svg";
 import coment from "../../assets/images/icon-coment.svg";
 import sent from "../../assets/images/icon-sent.svg";
-import { useDispatch } from "react-redux";
-import { addToFavorites } from "../../store/slices/favoritesSlice";
 
-export default function News(props) {
-  const [hidden, setHidden] = useState(false);
+export default function News({ type, el, onAddToFavorites, onRemoveFromFavorites }) {
+    const [hidden, setHidden] = useState(false);
 
-  const dispatch = useDispatch();
+    function handleAddToFavorites(el) {
+        onAddToFavorites(el)
+    }
 
-  function handleAddToFavorites() {
-    dispatch(addToFavorites({ title: props.title, body: props.body }));
-  }
+    function handleRemoveFromFavorites(el) {
+        onRemoveFromFavorites(el)
+    }
 
-  return (
-    <div className="news-item">
-      <div className="date">13.11.2023 10-00</div>
-      <div className="title">{props.title}</div>
+    return (
+        <div className="news-item">
+            <div className="date">{el.date}</div>
+            <div className="title">
+                <a href={el.url} target="_blank" rel="noreferrer">
+                    {el.title}
+                </a>
+            </div>
 
-      <div className="social">
-        <div className="social__item">
-          <img src={eye} alt="eye"></img>
-          <p>5.4K</p>
+            <div className="social">
+                {Number(el.views) !== 0 && (
+                    <div className="social__item">
+                        <img src={eye} alt="eye"></img>
+                        <p>5.4K</p>
+                    </div>
+                )}
+
+                <div className="social__item">
+                    <img src={like} alt="like"></img>
+                    <p>{el.like}</p>
+                </div>
+
+                <div className="social__item">
+                    <img src={coment} alt="comment"></img>
+                    <p>5.4K</p>
+                </div>
+
+                <div className="social__item">
+                    <img src={sent} alt="sent"></img>
+                    <p>{el.repost}</p>
+                </div>
+
+                <div className="arrow" onClick={() => setHidden(!hidden)}>
+                    <img
+                        className={
+                            hidden ? "arrow-img arrow-active" : "arrow-img"
+                        }
+                        src={chevron}
+                        alt="chevron"
+                    ></img>
+                </div>
+            </div>
+
+            {hidden && (
+                <div className="text">
+                    <p>{el.text}</p>
+                </div>
+            )}
+
+            {type === "favorite" ? (
+                <button
+                    className="button"
+                    onClick={() => handleRemoveFromFavorites(el)}
+                >
+                    Удалить из избранного
+                </button>
+            ) : (
+                <button
+                    className="button"
+                    onClick={() => handleAddToFavorites(el)}
+                >
+                    {el.is_favourite ? "В избранном" : "В избранное"}
+                </button>
+            )}
         </div>
-        <div className="social__item">
-          <img src={like} alt="like"></img>
-          <p>5.4K</p>
-        </div>
-        <div className="social__item">
-          <img src={coment} alt="comment"></img>
-          <p>5.4K</p>
-        </div>
-        <div className="social__item">
-          <img src={sent} alt="sent"></img>
-          <p>5.4K</p>
-        </div>
-
-        <div className="arrow" onClick={() => setHidden(!hidden)}>
-          <img
-            className={hidden ? "arrow-img arrow-active" : "arrow-img"}
-            src={chevron}
-						alt="chevron"
-          ></img>
-        </div>
-      </div>
-
-      {hidden && (
-        <div className="text">
-          <p>{props.body}</p>
-        </div>
-      )}
-
-      <button className="button" onClick={() => handleAddToFavorites()}>
-        в избранное
-      </button>
-    </div>
-  );
+    );
 }
