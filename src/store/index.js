@@ -4,11 +4,13 @@ import favoritesSlice from "./slices/favoritesSlice";
 import currentUserSlice from "./slices/currentUserSlice"
 import { loadState, saveState } from '../functions/localStorage'
 import sitesSlice from "./slices/sitesSlice";
+import tagsSlice from "./slices/tagsSlice";
 
 const persistedState = loadState();
 
 const store = configureStore({
   reducer: {
+    tags: tagsSlice,
     news: newsSlice,
     sites: sitesSlice,
     favorites: favoritesSlice,

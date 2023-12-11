@@ -13,10 +13,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import getRequest from '../../functions/getRequest';
 import loaderGif from "../../assets/images/loader.gif";
-import { setSites } from '../../store/slices/sitesSettingsMock';
-import { loadState, saveState } from '../../functions/localStorage'
 import {fetchSites} from "../../store/slices/sitesSlice";
 import postRequest from "../../functions/postRequest"
+// import { setSites } from '../../store/slices/sitesSettingsMock';
+// import { loadState, saveState } from '../../functions/localStorage'
 
 
 function CheckCurrentUserAccessPermissions(currentUser) {
@@ -53,20 +53,19 @@ export default function Admin() {
   const { currentUserCheckLoading } = CheckCurrentUserAccessPermissions(currentUser);
   useDocumentTitle("Admin");
   const { usersList, usersListLoading } = GetUsersList();
-  const { sites, status, error } = useSelector((state) => state.sites);
+  const { sites } = useSelector((state) => state.sites);
   const [sitesList, setSiesList] = useState(sites)
-  const [selectedUser, setSelectedUser] = useState(null)
   const [selectedSites, setSelectedSites] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null)
+  const { sendRequest } = postRequest()
   const dispatch = useDispatch();
-
+  
+  useEffect(() => {setSelectedUser(usersList.filter(u => u.email == currentUser.email)[0])}, [usersList]);
   useEffect(() => {dispatch(fetchSites())}, [dispatch]);
   useEffect(() => {
     setSiesList(sites)
     setSelectedSites(sitesList.filter(s => s.is_active))
   }, [sites]);
-  useEffect(() => {setSelectedUser(usersList.filter(u => u.email == currentUser.email)[0])}, [usersList]);
-  
-  const { sendRequest } = postRequest()
 
   function handleSiteToggle(site) {
     setSelectedSites(prevSites => {
@@ -114,7 +113,7 @@ export default function Admin() {
             </div>
             <div className="admin__bottom__block">
               {selectedSites.map((site, index) => (
-                  <SiteSettings site={site} key={site.id} handleSiteToggle={handleSiteToggle} siteList={sitesList}/>
+                  <SiteSettings site={site} key={site.id} handleSiteToggle={handleSiteToggle}/>
               ))}
             </div>
           </div>
