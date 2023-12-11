@@ -1,9 +1,9 @@
 .checkSites-container {
     position: relative;
+    width: 100%;
 }
 
 .checkButton-wrapper {
-    width: 24%;
     border: 1px solid #0F62FE;
 }
 
@@ -22,10 +22,10 @@
 }
 
 .sitesList-wrapper {
-    width: 24%;
     background-color: #161616;
     position: absolute;
     border: 1px solid #0F62FE;
+    width: 100%;
 }
 
 .sitesList-element {

@@ -5,9 +5,17 @@ import checkBox from "../../assets/images/checkbox.svg";
 import checkBoxChecked from "../../assets/images/checkbox-checked.svg";
 import {fetchSites} from "../../store/slices/sitesSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {fetchTags} from "../../store/slices/tagsSlice"
+import "../Tags/Tags.css"
+import close from "../../assets/images/close.svg"
+import addclose from "../../assets/images/addClosed.svg"
+import SitesCheckButton from "../SitesCheckButton/SitesCheckButton"
+import Tag from "../Tags/Tags"
+
 
 export default function SiteFilter() {
-
+  const [checkboxStates, setCheckboxStates] = useState({});
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 	const options = [
 		{ value: "facebook", label: "Facebook" },
     { value: "instagram", label: "Instagram" },
@@ -19,11 +27,30 @@ export default function SiteFilter() {
 
   const dispatch = useDispatch();
   const sitesData = useSelector((state) => state.sites);
-  const { sites, status, error } = sitesData;
+  const { sites, status: sitesStatus, error } = sitesData;
+  const [ allowedSites, setAllowedSites ] = useState([])
 
-  const [checkboxStates, setCheckboxStates] = useState({});
+  useEffect(() => {
+    if (sitesStatus === "succeeded") {
+      setAllowedSites(sites.filter(s => s.is_active))
+    }
+  }, [sitesStatus])
 
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const { tags, status: tagsLoading } = useSelector((state) => state.tags);
+  const [tagsReady, setTagsReady] = useState(false)
+  useEffect(() => {dispatch(fetchTags())}, [dispatch]);
+  const [sortedTags, setSortedTags] = useState([])
+
+  useEffect(() => {
+      if (tagsLoading == "succeeded") {
+          setSortedTags(tags.slice()
+                          .filter(tag => tag.site_list.some(tagSite => allowedSites.some(allowedSite => allowedSite.id === tagSite.id)))
+                          .filter(tag => tag.is_active)
+          )
+          setTagsReady(true)
+      }
+  }, [tags])
+
 
   // Toggle accordion state
   const toggleAccordion = () => {
@@ -55,7 +82,7 @@ export default function SiteFilter() {
   return (
     <div className="news-filter">
       <div className="news-source-item">
-        <div className="accordion" onClick={toggleAccordion}>
+        {/* <div className="accordion" onClick={toggleAccordion}>
           <div className="accordion-header">
             <a className="accordion-title">Ресурс</a>
             <img
@@ -64,12 +91,14 @@ export default function SiteFilter() {
                 className={isAccordionOpen ? 'rotate-arrow' : ''}
             />
           </div>
-        </div>
+        </div> */}
+
+        <SitesCheckButton siteList={allowedSites} handleSiteToggle={()=>{}}/>
 
         {isAccordionOpen && (
             <div className="sites-data-container">
               <div className="sites-data-container">
-                {sites.map((site) => (
+                {allowedSites.map((site) => (
                     <div key={site.id} className="site-item">
                       <span className="site-title">{site.title}</span>
                       <img
@@ -96,45 +125,21 @@ export default function SiteFilter() {
               <input type="text" id="end-date" />
             </div>
           </div>
-
-          <label className="margin-bottom-1rem">Метки</label>
-
-          <div className="tags-container">
-            <div className="tag-blue">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-blue">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-blue">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-blue">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-
-            <div className="tag-white">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-white">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-white">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-white">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-          </div>
         </div>
+        
+        <p className="margin-bottom-1rem">Метки:</p>
+
+        <div className="tags-container">
+
+          {tagsReady ? 
+            sortedTags.map((tag, index) => <Tag key={index} tag={tag} clickHandler={()=>{}} />)
+          :
+            <div>Loading...</div>
+          }
+          
+        </div>
+
+
       </div>
     </div>
   );
