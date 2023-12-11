@@ -23,11 +23,7 @@ export default function UserEdit({user, setUser, prop, toggleFunc, elIndex}) {
         if (user.is_superuser != newData.is_superuser) {
             sendRequest(`https://parsing-app.onrender.com/user/email/${user.email}`, "PATCH", newData)
                 .then(()=> {
-                    const newUser = {...user}
-                    for (let property in newData) {
-                        if (newUser[property] !== newData[property]) {newUser[property] = newData[property]}
-                    }
-                    setUser(newUser)
+                    setUser({...user, ...newData})
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);

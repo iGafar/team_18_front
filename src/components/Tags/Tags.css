@@ -39,3 +39,54 @@
     display: flex;
     justify-content: center;
 }
+
+
+
+/* ---------------------------------------------------------------- */
+.tags-container {
+    /* margin-top: -0.5rem; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+}
+
+.tags-container label {
+    margin-bottom: 0.5rem;
+}
+
+.tags-container .tag {
+    min-width: calc(100% / 4 - 3%);
+    padding: 0 3%;
+    justify-content: space-between;
+    gap: 0;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.32px;
+}
+
+.tags-container > .tagsButton {
+    margin-top: -0.3rem;
+}
+
+.tagsButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.tagsButton :hover {
+    color:#006CCF
+}
+
+.tags-hideAll div {
+    display: flex;
+    align-items: flex-end;
+}
+
+.tags-hideAll img {
+    transform: rotate(180deg) translateY(-0.4rem);
+}

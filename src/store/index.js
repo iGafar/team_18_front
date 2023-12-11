@@ -3,7 +3,7 @@ import newsSlice from "./slices/newsSlice";
 import favoritesSlice from "./slices/favoritesSlice";
 import currentUserSlice from "./slices/currentUserSlice"
 import { loadState, saveState } from '../functions/localStorage'
-import sitesSlice from "./slices/sitesSettingsMock";
+import sitesSlice from "./slices/sitesSlice";
 
 const persistedState = loadState();
 
@@ -13,7 +13,6 @@ const store = configureStore({
     sites: sitesSlice,
     favorites: favoritesSlice,
     currentUser: currentUserSlice,
-    sites: sitesSlice,
   },
   preloadedState: persistedState
 });
@@ -23,7 +22,7 @@ store.subscribe(() => {
     // news: store.getState().news,
     // favorites: store.getState().favorites,
     currentUser: store.getState().currentUser,
-    sites: store.getState().sites
+    // sites: store.getState().sites
   });
 });
 

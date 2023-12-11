@@ -5,12 +5,17 @@ import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { setSites } from '../../../store/slices/sitesSettingsMock';
 import { loadState, saveState } from '../../../functions/localStorage'
+import siteTags from "../mock/tags.json"
 
-
-export default function SiteSettings({site, handleSiteToggle, siteList}) {
+export default function SiteSettings({site, handleSiteToggle, sitesList}) {
     const [showAllTags, setShowAllTags] = useState(false)
-    const [sortedTags, setSortedTags] = useState(site.tags.slice().sort((a, b) => a.active === b.active ? 0 : a.active ? -1 : 1))
-    const [sitesList, setSitesList] = useState(siteList)
+    const [sites, setSites] = useState(sitesList)
+    const { news, status, error } = useSelector((state) => state.news);
+    // const siteTags = news.filter(n => n.site_id === site.id)
+    // console.log("news", news, "siteTags", siteTags)
+    const [sortedTags, setSortedTags] = useState(siteTags.slice().sort((a, b) => a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1))
+
+
 
     function activeteAllTags() {
         setSortedTags(prev => {
@@ -21,13 +26,13 @@ export default function SiteSettings({site, handleSiteToggle, siteList}) {
     const dispatch = useDispatch();
 
     function UpdateSitesInStore(site, tag) {
-        const newSitesList = sitesList.map((s) => {
+        const newSitesList = sites.map((s) => {
             if (s.name == site.name) {
                 return {...s, tags: s.tags.map(t => t.name === tag.name ? {...t, active: !t.active} : t)};
             }
             return {...s}
         })
-        setSitesList(newSitesList)
+        setSites(newSitesList)
         dispatch(setSites(newSitesList));
     }
 
@@ -48,7 +53,7 @@ export default function SiteSettings({site, handleSiteToggle, siteList}) {
             <div className="siteSettings-wrapper">
                 <div className="siteSettings-inner">
                     <div className="siteSettings-name">
-                        <p>{site.name}</p>
+                        <p>{site.title}</p>
                     </div>
 
                     <div className="siteSettings-menu">

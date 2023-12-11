@@ -1,0 +1,377 @@
+[
+  {
+    "title": "аватар",
+    "id": 33,
+    "is_active": false
+  },
+  {
+    "title": "алкоголь",
+    "id": 32,
+    "is_active": false
+  },
+  {
+    "title": "археология",
+    "id": 52,
+    "is_active": false
+  },
+  {
+    "title": "афалины",
+    "id": 69,
+    "is_active": true
+  },
+  {
+    "title": "бесплатно и полезно",
+    "id": 1,
+    "is_active": false
+  },
+  {
+    "title": "Биология",
+    "id": 68,
+    "is_active": false
+  },
+  {
+    "title": "благотворительность",
+    "id": 53,
+    "is_active": false
+  },
+  {
+    "title": "больница",
+    "id": 54,
+    "is_active": true
+  },
+  {
+    "title": "Британия",
+    "id": 55,
+    "is_active": false
+  },
+  {
+    "title": "виртуальная реальность",
+    "id": 34,
+    "is_active": true
+  },
+  {
+    "title": "возраст",
+    "id": 13,
+    "is_active": false
+  },
+  {
+    "title": "вселенная",
+    "id": 73,
+    "is_active": true
+  },
+  {
+    "title": "город",
+    "id": 63,
+    "is_active": false
+  },
+  {
+    "title": "дворы",
+    "id": 64,
+    "is_active": true
+  },
+  {
+    "title": "дельфины",
+    "id": 70,
+    "is_active": false
+  },
+  {
+    "title": "деменция",
+    "id": 43,
+    "is_active": true
+  },
+  {
+    "title": "дети",
+    "id": 24,
+    "is_active": false
+  },
+  {
+    "title": "диоксид циркония",
+    "id": 59,
+    "is_active": true
+  },
+  {
+    "title": "еда",
+    "id": 50,
+    "is_active": false
+  },
+  {
+    "title": "животные",
+    "id": 28,
+    "is_active": false
+  },
+  {
+    "title": "здоровье",
+    "id": 22,
+    "is_active": false
+  },
+  {
+    "title": "интернет",
+    "id": 21,
+    "is_active": false
+  },
+  {
+    "title": "искусство",
+    "id": 27,
+    "is_active": false
+  },
+  {
+    "title": "исследование",
+    "id": 16,
+    "is_active": false
+  },
+  {
+    "title": "история",
+    "id": 18,
+    "is_active": false
+  },
+  {
+    "title": "История",
+    "id": 51,
+    "is_active": false
+  },
+  {
+    "title": "квантовое распределение ключей",
+    "id": 46,
+    "is_active": false
+  },
+  {
+    "title": "кино",
+    "id": 20,
+    "is_active": false
+  },
+  {
+    "title": "кладбище",
+    "id": 56,
+    "is_active": false
+  },
+  {
+    "title": "космос",
+    "id": 26,
+    "is_active": false
+  },
+  {
+    "title": "красная планета",
+    "id": 74,
+    "is_active": false
+  },
+  {
+    "title": "магнитное поле",
+    "id": 38,
+    "is_active": false
+  },
+  {
+    "title": "магнитометр",
+    "id": 39,
+    "is_active": false
+  },
+  {
+    "title": "марс",
+    "id": 75,
+    "is_active": false
+  },
+  {
+    "title": "медицина",
+    "id": 31,
+    "is_active": false
+  },
+  {
+    "title": "Медицина",
+    "id": 42,
+    "is_active": false
+  },
+  {
+    "title": "мембрана",
+    "id": 60,
+    "is_active": false
+  },
+  {
+    "title": "мир",
+    "id": 14,
+    "is_active": false
+  },
+  {
+    "title": "мода",
+    "id": 6,
+    "is_active": false
+  },
+  {
+    "title": "молнии",
+    "id": 47,
+    "is_active": false
+  },
+  {
+    "title": "москва",
+    "id": 7,
+    "is_active": false
+  },
+  {
+    "title": "музей",
+    "id": 2,
+    "is_active": false
+  },
+  {
+    "title": "музыка",
+    "id": 29,
+    "is_active": false
+  },
+  {
+    "title": "наука",
+    "id": 12,
+    "is_active": false
+  },
+  {
+    "title": "образование",
+    "id": 3,
+    "is_active": false
+  },
+  {
+    "title": "оптическое волокно",
+    "id": 40,
+    "is_active": false
+  },
+  {
+    "title": "психология",
+    "id": 17,
+    "is_active": false
+  },
+  {
+    "title": "путешествия",
+    "id": 80,
+    "is_active": false
+  },
+  {
+    "title": "работа",
+    "id": 4,
+    "is_active": false
+  },
+  {
+    "title": "радиация",
+    "id": 76,
+    "is_active": false
+  },
+  {
+    "title": "резонаторы",
+    "id": 41,
+    "is_active": false
+  },
+  {
+    "title": "родители",
+    "id": 65,
+    "is_active": false
+  },
+  {
+    "title": "россия",
+    "id": 5,
+    "is_active": false
+  },
+  {
+    "title": "связь",
+    "id": 48,
+    "is_active": false
+  },
+  {
+    "title": "село",
+    "id": 66,
+    "is_active": false
+  },
+  {
+    "title": "события",
+    "id": 10,
+    "is_active": false
+  },
+  {
+    "title": "средневековье",
+    "id": 57,
+    "is_active": false
+  },
+  {
+    "title": "Средние века",
+    "id": 58,
+    "is_active": false
+  },
+  {
+    "title": "старение",
+    "id": 44,
+    "is_active": false
+  },
+  {
+    "title": "субкультура",
+    "id": 67,
+    "is_active": false
+  },
+  {
+    "title": "терраформирование",
+    "id": 77,
+    "is_active": false
+  },
+  {
+    "title": "тесты",
+    "id": 30,
+    "is_active": false
+  },
+  {
+    "title": "технологии",
+    "id": 25,
+    "is_active": false
+  },
+  {
+    "title": "топливные элементы",
+    "id": 61,
+    "is_active": false
+  },
+  {
+    "title": "тревога",
+    "id": 35,
+    "is_active": false
+  },
+  {
+    "title": "тревожность",
+    "id": 36,
+    "is_active": false
+  },
+  {
+    "title": "тренд",
+    "id": 11,
+    "is_active": false
+  },
+  {
+    "title": "тренинг",
+    "id": 37,
+    "is_active": false
+  },
+  {
+    "title": "холестерин",
+    "id": 45,
+    "is_active": false
+  },
+  {
+    "title": "экология",
+    "id": 9,
+    "is_active": false
+  },
+  {
+    "title": "электролиты",
+    "id": 62,
+    "is_active": false
+  },
+  {
+    "title": "электромагнитные волны",
+    "id": 49,
+    "is_active": false
+  },
+  {
+    "title": "электрорецепторы",
+    "id": 71,
+    "is_active": false
+  },
+  {
+    "title": "электрорецепция",
+    "id": 72,
+    "is_active": false
+  },
+  {
+    "title": "языки",
+    "id": 19,
+    "is_active": false
+  }
+]

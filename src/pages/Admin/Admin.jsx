@@ -4,27 +4,23 @@ import AdminUserImage from "../../components/Admin/AdminUserImage/AdminUserImage
 import AdminAddUser from "../../components/Admin/AdminAddUser/AdminAddUser";
 import UsersList from "../../components/Admin/UsersList/UsersList";
 import AdminUserInfo from "../../components/Admin/AdminUserInfo/AdminUserInfo";
-import AdminSitesCheckButton from "../../components/Admin/AdminSitesCheckButton/AdminSitesCheckButton"
+import SitesCheckButton from "../../components/SitesCheckButton/SitesCheckButton"
 import SiteSettings from "../../components/Admin/SiteSettings/SiteSettings";
 import './Admin.css'
 import { useState, useEffect } from "react";
-// import sitesList from "../../components/Admin/mock/sites.json"
 import { useDocumentTitle } from "../../hooks/setDocumentTitle";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import getRequest from '../../functions/getRequest';
 import loaderGif from "../../assets/images/loader.gif";
-// import useGetSiteSettingsList from "../../functions/getSitesAndTags"
-// import { fetchSitesAndNews } from '../../store/slices/sitesAndNewsSlice';
 import { setSites } from '../../store/slices/sitesSettingsMock';
 import { loadState, saveState } from '../../functions/localStorage'
-
+import {fetchSites} from "../../store/slices/sitesSlice";
+import postRequest from "../../functions/postRequest"
 
 
 function CheckCurrentUserAccessPermissions(currentUser) {
   const navigate = useNavigate();
-  console.log("currentUser", currentUser)
-  
   if (!currentUser?.email) {navigate('/access-denied');}
   
   const { isLoading, data, sendRequest } = getRequest()
@@ -47,43 +43,50 @@ function GetUsersList() {
   const [usersList, setUsersList] = useState([])
   
   useEffect(() => {sendRequest(`https://parsing-app.onrender.com/user`)}, [])
-
   useEffect(() => {setUsersList(Array.from(data))}, [data])
   
   return {usersList, usersListLoading: isLoading}
 }
 
-
-export default function Admin() {  // --------------------------------------------------------------- //
-  useDocumentTitle("Admin");
-
+export default function Admin() {
   const currentUser = useSelector((state) => state.currentUser);
   const { currentUserCheckLoading } = CheckCurrentUserAccessPermissions(currentUser);
+  useDocumentTitle("Admin");
   const { usersList, usersListLoading } = GetUsersList();
+  const { sites, status, error } = useSelector((state) => state.sites);
+  const [sitesList, setSiesList] = useState(sites)
   const [selectedUser, setSelectedUser] = useState(null)
-
-  useEffect(() => {
-    setSelectedUser(usersList.map((u)=>{if (u.email === currentUser.email){return u}})[0])
-  }, [usersList]);
-
+  const [selectedSites, setSelectedSites] = useState([]);
   const dispatch = useDispatch();
-  const sitesList = useSelector((state) => state.sites.sites);
-  const [selectedSites, setSelectedSites] = useState(sitesList.filter(s => s.active));
+
+  useEffect(() => {dispatch(fetchSites())}, [dispatch]);
+  useEffect(() => {
+    setSiesList(sites)
+    setSelectedSites(sitesList.filter(s => s.is_active))
+  }, [sites]);
+  useEffect(() => {setSelectedUser(usersList.filter(u => u.email == currentUser.email)[0])}, [usersList]);
+  
+  const { sendRequest } = postRequest()
 
   function handleSiteToggle(site) {
     setSelectedSites(prevSites => {
-      if (prevSites.some(s => s.name == site.name)) {
-        return prevSites.filter(s => s.name != site.name);
+      if (prevSites.some(s => s.id == site.id)) {
+        return prevSites.filter(s => s.id != site.id);
       } else {return [...prevSites, site];}
     });
 
+    const newData = {title: site.title, url: site.url, is_active: !site.is_active}
+    sendRequest(`https://parsing-app.onrender.com/site/id/${site.id}?cat_id=${site.id}`, "PATCH", newData)
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+
     let updatedSitesList = sitesList.map((s) => {
-      if (s.name === site.name) {return {...s, active: !s.active}}
+      if (s.id === site.id) {return {...s, is_active: !s.is_active}}
       else {return s}
     })
-  
-    saveState({ ...loadState(), sites: updatedSitesList });
-    dispatch(setSites(updatedSitesList));
+
+    setSiesList(updatedSitesList)
   }
 
   return (
@@ -106,10 +109,12 @@ export default function Admin() {  // ------------------------------------------
             </div>
           </div>
           <div className="container">
-            <AdminSitesCheckButton handleSiteToggle={handleSiteToggle} siteList={sitesList}/>
+            <div className="w-24">
+              <SitesCheckButton handleSiteToggle={handleSiteToggle} siteList={sitesList}/>
+            </div>
             <div className="admin__bottom__block">
               {selectedSites.map((site, index) => (
-                  <SiteSettings site={site} key={index} handleSiteToggle={handleSiteToggle} siteList={sitesList}/>
+                  <SiteSettings site={site} key={site.id} handleSiteToggle={handleSiteToggle} siteList={sitesList}/>
               ))}
             </div>
           </div>

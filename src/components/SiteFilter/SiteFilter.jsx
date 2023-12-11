@@ -6,6 +6,12 @@ import checkBoxChecked from "../../assets/images/checkbox-checked.svg";
 import {fetchSites} from "../../store/slices/sitesSlice";
 import {useDispatch, useSelector} from "react-redux";
 
+import "../Tags/Tags.css"
+import close from "../../assets/images/close.svg"
+import addclose from "../../assets/images/addClosed.svg"
+import SitesCheckButton from "../SitesCheckButton/SitesCheckButton"
+
+
 export default function SiteFilter() {
 
 	const options = [
@@ -55,7 +61,7 @@ export default function SiteFilter() {
   return (
     <div className="news-filter">
       <div className="news-source-item">
-        <div className="accordion" onClick={toggleAccordion}>
+        {/* <div className="accordion" onClick={toggleAccordion}>
           <div className="accordion-header">
             <a className="accordion-title">Ресурс</a>
             <img
@@ -64,7 +70,9 @@ export default function SiteFilter() {
                 className={isAccordionOpen ? 'rotate-arrow' : ''}
             />
           </div>
-        </div>
+        </div> */}
+
+        <SitesCheckButton siteList={sites}/>
 
         {isAccordionOpen && (
             <div className="sites-data-container">
@@ -96,45 +104,60 @@ export default function SiteFilter() {
               <input type="text" id="end-date" />
             </div>
           </div>
-
-          <label className="margin-bottom-1rem">Метки</label>
-
-          <div className="tags-container">
-            <div className="tag-blue">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-blue">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-blue">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-blue">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-
-            <div className="tag-white">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-white">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-white">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-            <div className="tag-white">
-              <span>Tag</span>
-              <button type="button">x</button>
-            </div>
-          </div>
         </div>
+        
+        <p className="margin-bottom-1rem">Метки:</p>
+
+        <div className="tags-container">
+
+          <button className="tag tag-blue">
+            <span className="tagSpan">avto</span>
+            <img src={close} alt="" />
+          </button>
+
+          <button className="tag tag-white">
+            <span className="tagSpan">girls</span>
+            <img src={addclose} alt="" />
+          </button>
+
+          <button className="tag tag-blue">
+            <span className="tagSpan">games</span>
+            <img src={close} alt="" />
+          </button>
+
+          <button className="tag tag-blue">
+            <span className="tagSpan">avto</span>
+            <img src={close} alt="" />
+          </button>
+
+          <button className="tag tag-white">
+            <span className="tagSpan">girls</span>
+            <img src={addclose} alt="" />
+          </button>
+
+          <button className="tag tag-blue">
+            <span className="tagSpan">games</span>
+            <img src={close} alt="" />
+          </button>
+
+          <button className="tag tag-blue">
+            <span className="tagSpan">avto</span>
+            <img src={close} alt="" />
+          </button>
+
+          <button className="tag tag-white">
+            <span className="tagSpan">girls</span>
+            <img src={addclose} alt="" />
+          </button>
+
+          <button className="tag tag-blue">
+            <span className="tagSpan">games</span>
+            <img src={close} alt="" />
+          </button>
+          
+        </div>
+
+
       </div>
     </div>
   );
