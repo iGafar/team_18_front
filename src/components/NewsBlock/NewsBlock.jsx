@@ -22,7 +22,7 @@ const NewsBlock = () => {
     setBlockHeight(
       document.querySelector(".news__block-container").clientHeight
     );
-    console.log(blockHeight);
+    // console.log(blockHeight);
   });
 
   useEffect(() => {

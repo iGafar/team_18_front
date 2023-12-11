@@ -5,15 +5,17 @@ import checkBox from "../../assets/images/checkbox.svg";
 import checkBoxChecked from "../../assets/images/checkbox-checked.svg";
 import {fetchSites} from "../../store/slices/sitesSlice";
 import {useDispatch, useSelector} from "react-redux";
-
+import {fetchTags} from "../../store/slices/tagsSlice"
 import "../Tags/Tags.css"
 import close from "../../assets/images/close.svg"
 import addclose from "../../assets/images/addClosed.svg"
 import SitesCheckButton from "../SitesCheckButton/SitesCheckButton"
+import Tag from "../Tags/Tags"
 
 
 export default function SiteFilter() {
-
+  const [checkboxStates, setCheckboxStates] = useState({});
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 	const options = [
 		{ value: "facebook", label: "Facebook" },
     { value: "instagram", label: "Instagram" },
@@ -25,11 +27,30 @@ export default function SiteFilter() {
 
   const dispatch = useDispatch();
   const sitesData = useSelector((state) => state.sites);
-  const { sites, status, error } = sitesData;
+  const { sites, status: sitesStatus, error } = sitesData;
+  const [ allowedSites, setAllowedSites ] = useState([])
 
-  const [checkboxStates, setCheckboxStates] = useState({});
+  useEffect(() => {
+    if (sitesStatus === "succeeded") {
+      setAllowedSites(sites.filter(s => s.is_active))
+    }
+  }, [sitesStatus])
 
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+  const { tags, status: tagsLoading } = useSelector((state) => state.tags);
+  const [tagsReady, setTagsReady] = useState(false)
+  useEffect(() => {dispatch(fetchTags())}, [dispatch]);
+  const [sortedTags, setSortedTags] = useState([])
+
+  useEffect(() => {
+      if (tagsLoading == "succeeded") {
+          setSortedTags(tags.slice()
+                          .filter(tag => tag.site_list.some(tagSite => allowedSites.some(allowedSite => allowedSite.id === tagSite.id)))
+                          .filter(tag => tag.is_active)
+          )
+          setTagsReady(true)
+      }
+  }, [tags])
+
 
   // Toggle accordion state
   const toggleAccordion = () => {
@@ -72,12 +93,12 @@ export default function SiteFilter() {
           </div>
         </div> */}
 
-        <SitesCheckButton siteList={sites}/>
+        <SitesCheckButton siteList={allowedSites} handleSiteToggle={()=>{}}/>
 
         {isAccordionOpen && (
             <div className="sites-data-container">
               <div className="sites-data-container">
-                {sites.map((site) => (
+                {allowedSites.map((site) => (
                     <div key={site.id} className="site-item">
                       <span className="site-title">{site.title}</span>
                       <img
@@ -110,50 +131,11 @@ export default function SiteFilter() {
 
         <div className="tags-container">
 
-          <button className="tag tag-blue">
-            <span className="tagSpan">avto</span>
-            <img src={close} alt="" />
-          </button>
-
-          <button className="tag tag-white">
-            <span className="tagSpan">girls</span>
-            <img src={addclose} alt="" />
-          </button>
-
-          <button className="tag tag-blue">
-            <span className="tagSpan">games</span>
-            <img src={close} alt="" />
-          </button>
-
-          <button className="tag tag-blue">
-            <span className="tagSpan">avto</span>
-            <img src={close} alt="" />
-          </button>
-
-          <button className="tag tag-white">
-            <span className="tagSpan">girls</span>
-            <img src={addclose} alt="" />
-          </button>
-
-          <button className="tag tag-blue">
-            <span className="tagSpan">games</span>
-            <img src={close} alt="" />
-          </button>
-
-          <button className="tag tag-blue">
-            <span className="tagSpan">avto</span>
-            <img src={close} alt="" />
-          </button>
-
-          <button className="tag tag-white">
-            <span className="tagSpan">girls</span>
-            <img src={addclose} alt="" />
-          </button>
-
-          <button className="tag tag-blue">
-            <span className="tagSpan">games</span>
-            <img src={close} alt="" />
-          </button>
+          {tagsReady ? 
+            sortedTags.map((tag, index) => <Tag key={index} tag={tag} clickHandler={()=>{}} />)
+          :
+            <div>Loading...</div>
+          }
           
         </div>
 
