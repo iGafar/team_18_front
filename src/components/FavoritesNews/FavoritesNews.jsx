@@ -30,7 +30,7 @@ const FavoritesNews = () => {
   };
 
   const handleRemoveFromFavorites = (newsItem) => {
-    dispatch(removeFromFavorites(newsItem.id));
+    dispatch(removeFromFavorites(newsItem));
   };
 
   const filteredNews = useMemo(() => {

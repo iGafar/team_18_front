@@ -16,6 +16,15 @@ const NewsBlock = () => {
   const [maxNewsOnPage, setMaxNewsOnPage] = useState(3);
   const [searchValue, setSearchValue] = useState("");
 
+  let [blockHeight, setBlockHeight] = useState(400);
+
+  window.addEventListener("resize", () => {
+    setBlockHeight(
+      document.querySelector(".news__block-container").clientHeight
+    );
+    console.log(blockHeight);
+  });
+
   useEffect(() => {
     dispatch(fetchNews());
   }, [dispatch]);
@@ -28,7 +37,7 @@ const NewsBlock = () => {
   }, [searchValue, maxNewsOnPage]);
 
   const handleAddToFavorites = (newsItem) => {
-    dispatch(addToFavorites(newsItem.id));
+    dispatch(addToFavorites(newsItem));
   };
 
   const filteredNews = useMemo(() => {
@@ -68,14 +77,19 @@ const NewsBlock = () => {
           searchValue={searchValue}
         />
 
-        <div className="news__block">
-          {filteredNews.slice(startIndex, endIndex).map((el) => (
-            <NewsItem
-              key={el.id}
-              el={el}
-              onAddToFavorites={() => handleAddToFavorites(el)}
-            />
-          ))}
+        <div className="news__block-container">
+          <div
+            className="news__block"
+            style={{ maxHeight: blockHeight + "px" }}
+          >
+            {filteredNews.slice(startIndex, endIndex).map((el) => (
+              <NewsItem
+                key={el.id}
+                el={el}
+                onAddToFavorites={() => handleAddToFavorites(el)}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
