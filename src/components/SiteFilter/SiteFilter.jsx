@@ -1,118 +1,81 @@
 import "./SiteFilter.css";
 import React, {useEffect, useState} from "react";
-import arrowDown from "../../assets/images/arrown-down.svg";
-import checkBox from "../../assets/images/checkbox.svg";
-import checkBoxChecked from "../../assets/images/checkbox-checked.svg";
 import {fetchSites} from "../../store/slices/sitesSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchTags} from "../../store/slices/tagsSlice"
 import "../Tags/Tags.css"
-import close from "../../assets/images/close.svg"
-import addclose from "../../assets/images/addClosed.svg"
 import SitesCheckButton from "../SitesCheckButton/SitesCheckButton"
 import Tag from "../Tags/Tags"
-
+import { setFilterSettings } from "../../store/slices/currentUserSlice";
+import { useNavigate } from 'react-router-dom';
 
 export default function SiteFilter() {
-  const [checkboxStates, setCheckboxStates] = useState({});
-  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
-	const options = [
-		{ value: "facebook", label: "Facebook" },
-    { value: "instagram", label: "Instagram" },
-    { value: "twitter", label: "Twitter" },
-    { value: "youtube", label: "Youtube" },
-    { value: "tiktok", label: "Tiktok" },
-		{ value: "all", label: "Все сайты" },
-	]
-
   const dispatch = useDispatch();
-  const sitesData = useSelector((state) => state.sites);
-  const { sites, status: sitesStatus, error } = sitesData;
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.currentUser);
+  if (!currentUser.email) {navigate('/');}
+  const { sites: dbSites, status: dbSitesStatus, error } = useSelector((state) => state.sites);
   const [ allowedSites, setAllowedSites ] = useState([])
+  const { tags: dbTags, status: dbTagsLoading } = useSelector((state) => state.tags);
+  const [ allTags, setAllTags ] = useState([])
+  const [ sortedTags, setSortedTags ] = useState([])
 
+  // получаем данные сайтов и тегов - если есть, то из local storage, если нет - берем с сервера
   useEffect(() => {
-    if (sitesStatus === "succeeded") {
-      setAllowedSites(sites.filter(s => s.is_active))
+    const filters = currentUser.filterSettings
+    if (Object.keys(filters).length) {
+      setAllowedSites(filters.sites);
+      setAllTags(filters.tags);
+      const siteMap = filters.sites.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
+      setSortedTags(filters.tags
+        .filter(tag => tag.site_list.some(tagSite => siteMap[tagSite.id]))
+        .sort((a, b) => a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1)
+      );
+    } else {
+      dispatch(fetchSites());
+      dispatch(fetchTags());
     }
-  }, [sitesStatus])
+  }, []);
 
-  const { tags, status: tagsLoading } = useSelector((state) => state.tags);
-  const [tagsReady, setTagsReady] = useState(false)
-  useEffect(() => {dispatch(fetchTags())}, [dispatch]);
-  const [sortedTags, setSortedTags] = useState([])
-
+  // если берем данные с сервера
   useEffect(() => {
-      if (tagsLoading == "succeeded") {
-          setSortedTags(tags.slice()
-                          .filter(tag => tag.site_list.some(tagSite => allowedSites.some(allowedSite => allowedSite.id === tagSite.id)))
-                          .filter(tag => tag.is_active)
-          )
-          setTagsReady(true)
+      if (dbTagsLoading == "succeeded") {
+        const activeTags = dbTags.slice().filter(tag => tag.is_active)
+        const siteMap = allowedSites.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
+        setSortedTags(activeTags.filter(tag => tag.site_list.some(tagSite => siteMap[tagSite.id])));
+        setAllTags(activeTags)
       }
-  }, [tags])
+      if (dbSitesStatus === "succeeded") {
+        setAllowedSites(dbSites.filter(s => s.is_active))
+      }
+  }, [dbTags, dbSitesStatus])
 
 
-  // Toggle accordion state
-  const toggleAccordion = () => {
-    setIsAccordionOpen(!isAccordionOpen);
-  };
+  function handleSiteToggle(site) {
+    const newSiteList = allowedSites.slice().map(oldSite => oldSite.id == site.id ? {...oldSite, is_active: !oldSite.is_active} : oldSite);
+    const siteMap = newSiteList.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
+    const newTagsList = allTags.filter(tag => tag.site_list.some(tagSite => siteMap[tagSite.id]));
+    setAllowedSites(newSiteList)
+    setSortedTags(newTagsList.sort((a, b) => a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1))
+    
+    dispatch(setFilterSettings({sites: newSiteList, tags: allTags}));
+  }
 
-  useEffect(() => {
-    dispatch(fetchSites());
-  }, [dispatch]);
+  function handleTagToggle(tag) {
+    const updateTag = (oldTag) => oldTag.id === tag.id ? {...oldTag, is_active: !oldTag.is_active} : oldTag;
+    setAllTags(allTags.map(updateTag))
+    
+    const newSortedTags = sortedTags.map(updateTag)
+    setSortedTags(newSortedTags.sort((a, b) => a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1))
 
-  useEffect(() => {
-    if (sites) {
-      // Initialize checkbox states
-      const initialStates = sites.reduce((states, site) => {
-        states[site.id] = false; // Initially all checkboxes are unchecked
-        return states;
-      }, {});
-      setCheckboxStates(initialStates);
-    }
-  }, [sites]);
-
-  const handleCheckboxClick = (siteId) => {
-    setCheckboxStates(prevStates => ({
-      ...prevStates,
-      [siteId]: !prevStates[siteId] // Toggle the state
-    }));
-  };
+    dispatch(setFilterSettings({sites: allowedSites, tags: newSortedTags}));
+  }
 
   return (
     <div className="news-filter">
       <div className="news-source-item">
-        {/* <div className="accordion" onClick={toggleAccordion}>
-          <div className="accordion-header">
-            <a className="accordion-title">Ресурс</a>
-            <img
-                src={arrowDown}
-                alt="Toggle Arrow"
-                className={isAccordionOpen ? 'rotate-arrow' : ''}
-            />
-          </div>
-        </div> */}
 
-        <SitesCheckButton siteList={allowedSites} handleSiteToggle={()=>{}}/>
-
-        {isAccordionOpen && (
-            <div className="sites-data-container">
-              <div className="sites-data-container">
-                {allowedSites.map((site) => (
-                    <div key={site.id} className="site-item">
-                      <span className="site-title">{site.title}</span>
-                      <img
-                          className="site-checkbox"
-                          src={checkboxStates[site.id] ? checkBoxChecked : checkBox}
-                          onClick={() => handleCheckboxClick(site.id)}
-                          alt="Checkbox"
-                      />
-                    </div>
-                ))}
-              </div>
-            </div>
-        )}
-
+        <SitesCheckButton siteList={allowedSites} handleSiteToggle={handleSiteToggle}/>
         <div className="data-filters">
           <div className="date-range">
             <label className="margin-bottom-1rem">Дата</label>
@@ -131,11 +94,7 @@ export default function SiteFilter() {
 
         <div className="tags-container">
 
-          {tagsReady ? 
-            sortedTags.map((tag, index) => <Tag key={index} tag={tag} clickHandler={()=>{}} />)
-          :
-            <div>Loading...</div>
-          }
+          {sortedTags.map((tag, index) => <Tag key={index} tag={tag} clickHandler={handleTagToggle} />)}
           
         </div>
 

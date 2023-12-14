@@ -15,8 +15,6 @@ import getRequest from '../../functions/getRequest';
 import loaderGif from "../../assets/images/loader.gif";
 import {fetchSites} from "../../store/slices/sitesSlice";
 import postRequest from "../../functions/postRequest"
-// import { setSites } from '../../store/slices/sitesSettingsMock';
-// import { loadState, saveState } from '../../functions/localStorage'
 
 
 function CheckCurrentUserAccessPermissions(currentUser) {
