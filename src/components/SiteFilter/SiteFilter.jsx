@@ -76,7 +76,7 @@ export default function SiteFilter() {
       <div className="news-source-item">
 
         <SitesCheckButton siteList={allowedSites} handleSiteToggle={handleSiteToggle}/>
-        <div className="data-filters">
+        {/* <div className="data-filters">
           <div className="date-range">
             <label className="margin-bottom-1rem">Дата</label>
             <div className="date-container">
@@ -88,9 +88,9 @@ export default function SiteFilter() {
               <input type="text" id="end-date" />
             </div>
           </div>
-        </div>
+        </div> */}
         
-        <p className="margin-bottom-1rem">Метки:</p>
+        <p className="margin-bottom-1rem margin-top-1rem">Метки:</p>
 
         <div className="tags-container">
 
