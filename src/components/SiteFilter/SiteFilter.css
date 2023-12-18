@@ -50,10 +50,6 @@
   line-height: 16px; /* 100% */
 }
 
-.site-checkbox {
-  /* Additional styling for the checkbox if needed */
-}
-
 /* Style for rotating the arrow */
 .data-filters {
   margin-top: 20px;
@@ -68,7 +64,16 @@
 .date-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
+}
+
+#start-date,
+#end-date {
+  height: 30px;
+	color: #272728;
+	padding: 0 20px;
+	width: 155px;
 }
 
 .margin-bottom-1rem {

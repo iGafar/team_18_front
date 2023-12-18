@@ -10,7 +10,10 @@ import NewsHead from "../NewsHead/NewsHead";
 const NewsBlock = () => {
   const dispatch = useDispatch();
   const newsData = useSelector((state) => state.news);
+  const currentUser = useSelector((state) => state.currentUser);
   const { news, status, error } = newsData;
+
+  const [filterArray, setFilterArray] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [maxNewsOnPage, setMaxNewsOnPage] = useState(3);
@@ -22,7 +25,6 @@ const NewsBlock = () => {
     setBlockHeight(
       document.querySelector(".news__block-container").clientHeight
     );
-    // console.log(blockHeight);
   });
 
   useEffect(() => {
@@ -40,16 +42,33 @@ const NewsBlock = () => {
     dispatch(addToFavorites(newsItem));
   };
 
+  useEffect(() => {
+    const siteMap = currentUser.filterSettings.sites.reduce(
+      (map, site) => ({ ...map, [site.id]: site.is_active }),
+      {}
+    );
+    const tags = currentUser.filterSettings.tags.filter((tag) =>
+      tag.site_list.some((tagSite) => siteMap[tagSite.id])
+    );
+    const tagsMap = tags.reduce(
+      (map, tag) => ({ ...map, [tag.id]: tag.is_active }),
+      {}
+    );
+    setFilterArray(
+      news.filter((el) => siteMap[el.site_id] && tagsMap[el.site_id])
+    );
+  }, [currentUser, news, filterArray]);
+
   const filteredNews = useMemo(() => {
     if (status === "succeeded") {
-      return news.filter(
+      return filterArray.filter(
         (el) =>
           el.text.toLowerCase().includes(searchValue.toLowerCase()) ||
           el.title.toLowerCase().includes(searchValue.toLowerCase())
       );
     }
     return [];
-  }, [news, searchValue, status]);
+  }, [filterArray, searchValue, status]);
 
   const pages = useMemo(
     () => Math.ceil(filteredNews.length / maxNewsOnPage),
