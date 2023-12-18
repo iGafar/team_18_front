@@ -4,6 +4,7 @@ export const fetchSites = createAsyncThunk('sites/fetchSites', async () => {
   try {
     const response = await fetch('https://parsing-app.onrender.com/site');
     const jsonData = await response.json();
+		console.log(jsonData)
     return jsonData;
   } catch (error) {
     throw error;

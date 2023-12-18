@@ -14,7 +14,7 @@ export default function SiteFilter() {
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.currentUser);
   if (!currentUser.email) {navigate('/');}
-  const { sites: dbSites, status: dbSitesStatus, error } = useSelector((state) => state.sites);
+  const { sites: dbSites, status: dbSitesStatus } = useSelector((state) => state.sites);
   const [ allowedSites, setAllowedSites ] = useState([])
   const { tags: dbTags, status: dbTagsLoading } = useSelector((state) => state.tags);
   const [ allTags, setAllTags ] = useState([])
@@ -35,11 +35,11 @@ export default function SiteFilter() {
       dispatch(fetchSites());
       dispatch(fetchTags());
     }
-  }, []);
+  }, [currentUser.filterSettings, dispatch]);
 
   // если берем данные с сервера
   useEffect(() => {
-      if (dbTagsLoading == "succeeded") {
+      if (dbTagsLoading === "succeeded") {
         const activeTags = dbTags.slice().filter(tag => tag.is_active)
         const siteMap = allowedSites.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
         setSortedTags(activeTags.filter(tag => tag.site_list.some(tagSite => siteMap[tagSite.id])));
@@ -52,7 +52,7 @@ export default function SiteFilter() {
 
 
   function handleSiteToggle(site) {
-    const newSiteList = allowedSites.slice().map(oldSite => oldSite.id == site.id ? {...oldSite, is_active: !oldSite.is_active} : oldSite);
+    const newSiteList = allowedSites.slice().map(oldSite => oldSite.id === site.id ? {...oldSite, is_active: !oldSite.is_active} : oldSite);
     const siteMap = newSiteList.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
     const newTagsList = allTags.filter(tag => tag.site_list.some(tagSite => siteMap[tagSite.id]));
     setAllowedSites(newSiteList)
@@ -81,11 +81,11 @@ export default function SiteFilter() {
             <label className="margin-bottom-1rem">Дата</label>
             <div className="date-container">
               <label htmlFor="start-date">с</label>
-              <input type="text" id="start-date" />
+              <input type="date" id="start-date" />
             </div>
             <div className="date-container">
               <label htmlFor="end-date">по</label>
-              <input type="text" id="end-date" />
+              <input type="date" id="end-date" />
             </div>
           </div>
         </div>
