@@ -4,10 +4,17 @@ import avatar from "../../assets/images/avatar.svg";
 import settings from "../../assets/images/settings.svg";
 import "./Header.css";
 import {useSelector} from "react-redux"
+import { setCurrentUser } from "../../store/slices/currentUserSlice";
+import { useDispatch } from "react-redux";
 
 export default function Header() {
   const currentUser = useSelector((state) => state.currentUser);
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  function exitButtonHandler() {
+    dispatch(setCurrentUser({email:""}))
+  }
 
   return (
     <header className="header">
@@ -24,7 +31,7 @@ export default function Header() {
 							<button>Изменить иконку</button>
 							<button>Изменить имя</button>
 							<button>Изменить пароль</button>
-							<button>Выйти</button>
+							<button onClick={exitButtonHandler}>Выйти</button>
 						</div> }
           </div>
         </div>

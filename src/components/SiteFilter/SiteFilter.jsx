@@ -8,75 +8,68 @@ import SitesCheckButton from "../SitesCheckButton/SitesCheckButton"
 import Tag from "../Tags/Tags"
 import { setFilterSettings } from "../../store/slices/currentUserSlice";
 import { useNavigate } from 'react-router-dom';
+import getUpdatedNewsAndTags from "../../functions/getUpdatedNewsAndTAgs";
 
 export default function SiteFilter() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.currentUser);
   if (!currentUser.email) {navigate('/');}
-  const { sites: dbSites, status: dbSitesStatus } = useSelector((state) => state.sites);
-  const [ allowedSites, setAllowedSites ] = useState([])
+
+  const { sites: dbSites, status: dbSitesLoading } = useSelector((state) => state.sites);
   const { tags: dbTags, status: dbTagsLoading } = useSelector((state) => state.tags);
-  const [ allTags, setAllTags ] = useState([])
-  const [ sortedTags, setSortedTags ] = useState([])
+  const [ userSites, setUserSites ] = useState([])  // все сайты, разрешенные в админке
+  const [ userTags, setUserTags ] = useState([])    // все теги, разрешенные в админке
+  const [ showTags, setShowTags ] = useState([])    // отображаемые теги
+  const [ siteObjIdActive, setSiteObjIdActive ] = useState({})  // использ. в handleTagToggle для определения активных сайтов
 
-  // получаем данные сайтов и тегов - если есть, то из local storage, если нет - берем с сервера
-  useEffect(() => {
-    const filters = currentUser.filterSettings
-    if (Object.keys(filters).length) {
-      setAllowedSites(filters.sites);
-      setAllTags(filters.tags);
-      const siteMap = filters.sites.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
-      setSortedTags(filters.tags
-        .filter(tag => tag.site_list.some(tagSite => siteMap[tagSite.id]))
-        .sort((a, b) => a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1)
-      );
-    } else {
-      dispatch(fetchSites());
-      dispatch(fetchTags());
+  useEffect(()=>{
+    dispatch(fetchSites());
+    dispatch(fetchTags());
+  },[dispatch])
+
+  useEffect(()=>{
+    // берем данные из бд (и LS) списки сайтов и тегов
+    // в getUpdatedNewsAndTags определяем что изменилось в бд и присваиваем в соответствующие переменные
+    if (dbTagsLoading === "succeeded" && dbSitesLoading === "succeeded") {
+      const dbData = {sites: dbSites, tags: dbTags}
+      const {allowedSites, allowedTags, allowedSitesObjIdActive} = getUpdatedNewsAndTags(dbData, currentUser)
+
+      const filteredTagsForActiveSites = allowedTags.filter(tag => tag.site_list.some(site => allowedSitesObjIdActive[site.id]))
+
+      setUserSites(allowedSites)
+      setUserTags(allowedTags)
+      setSiteObjIdActive(allowedSites.reduce((map, site) => ({...map, [site.id]: site.is_active}), {}))
+      setShowTags(filteredTagsForActiveSites)
     }
-  }, [currentUser.filterSettings, dispatch]);
-
-  // если берем данные с сервера
-  useEffect(() => {
-      if (dbTagsLoading === "succeeded") {
-        const activeTags = dbTags.slice().filter(tag => tag.is_active)
-        const siteMap = allowedSites.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
-        setSortedTags(activeTags.filter(tag => tag.site_list.some(tagSite => siteMap[tagSite.id])));
-        setAllTags(activeTags)
-      }
-      if (dbSitesStatus === "succeeded") {
-        setAllowedSites(dbSites.filter(s => s.is_active))
-      }
-  }, [dbTags, dbSitesStatus])
+  },[dbSitesLoading, dbTagsLoading])
 
 
   function handleSiteToggle(site) {
-    const newSiteList = allowedSites.slice().map(oldSite => oldSite.id === site.id ? {...oldSite, is_active: !oldSite.is_active} : oldSite);
-    const siteMap = newSiteList.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
-    const newTagsList = allTags.filter(tag => tag.site_list.some(tagSite => siteMap[tagSite.id]));
-    setAllowedSites(newSiteList)
-    setSortedTags(newTagsList.sort((a, b) => a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1))
+    const siteListAfterClick = userSites.map(uSite => uSite.id === site.id ? {...uSite, is_active: !uSite.is_active} : uSite);
+    const siteMap = siteListAfterClick.reduce((map, site) => ({...map, [site.id]: site.is_active}), {});
+    const tagsForCheckedSites = userTags.filter(tag => tag.site_list.some(site => siteMap[site.id]));
     
-    dispatch(setFilterSettings({sites: newSiteList, tags: allTags}));
+    setUserSites(siteListAfterClick)
+    setShowTags(tagsForCheckedSites)
+    setSiteObjIdActive(siteMap)
+    dispatch(setFilterSettings({sites: siteListAfterClick, tags: userTags}));
   }
 
   function handleTagToggle(tag) {
-    const updateTag = (oldTag) => oldTag.id === tag.id ? {...oldTag, is_active: !oldTag.is_active} : oldTag;
-    setAllTags(allTags.map(updateTag))
-    
-    const newSortedTags = sortedTags.map(updateTag)
-    setSortedTags(newSortedTags.sort((a, b) => a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1))
-
-    dispatch(setFilterSettings({sites: allowedSites, tags: newSortedTags}));
+    // при клике на тег обновляются отображаемые теги и те что в сторе(+ лс)
+    const updatedUserTagsList = userTags.map(oldTag => oldTag.id === tag.id ? {...oldTag, is_active: !oldTag.is_active} : oldTag);
+    setUserTags(updatedUserTagsList)
+    setShowTags(updatedUserTagsList.filter(tag => tag.site_list.some(site => siteObjIdActive[site.id])))
+    dispatch(setFilterSettings({sites: userSites, tags: updatedUserTagsList}));
   }
 
   return (
     <div className="news-filter">
       <div className="news-source-item">
 
-        <SitesCheckButton siteList={allowedSites} handleSiteToggle={handleSiteToggle}/>
-        <div className="data-filters">
+        <SitesCheckButton siteList={userSites} handleSiteToggle={handleSiteToggle}/>
+        {/* <div className="data-filters">
           <div className="date-range">
             <label className="margin-bottom-1rem">Дата</label>
             <div className="date-container">
@@ -88,13 +81,16 @@ export default function SiteFilter() {
               <input type="date" id="end-date" />
             </div>
           </div>
-        </div>
+        </div> */}
         
-        <p className="margin-bottom-1rem">Метки:</p>
+        <p className="margin-bottom-1rem margin-top-1rem">Метки:</p>
 
         <div className="tags-container">
 
-          {sortedTags.map((tag, index) => <Tag key={index} tag={tag} clickHandler={handleTagToggle} />)}
+          {showTags
+            .sort((a, b) => b.is_active - a.is_active)
+            .map((tag, index) => <Tag key={index} tag={tag} clickHandler={handleTagToggle} />)
+          }
           
         </div>
 

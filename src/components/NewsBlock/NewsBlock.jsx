@@ -43,21 +43,19 @@ const NewsBlock = () => {
   };
 
   useEffect(() => {
-    const siteMap = currentUser.filterSettings.sites.reduce(
-      (map, site) => ({ ...map, [site.id]: site.is_active }),
-      {}
-    );
-    const tags = currentUser.filterSettings.tags.filter((tag) =>
-      tag.site_list.some((tagSite) => siteMap[tagSite.id])
-    );
-    const tagsMap = tags.reduce(
-      (map, tag) => ({ ...map, [tag.id]: tag.is_active }),
-      {}
-    );
-    setFilterArray(
-      news.filter((el) => siteMap[el.site_id] && tagsMap[el.site_id])
-    );
-  }, [currentUser, news, filterArray]);
+    if (Object.keys(currentUser.filterSettings).length) {
+      const siteMap = currentUser.filterSettings.sites.reduce(
+        (map, site) => ({ ...map, [site.id]: site.is_active }), {}
+      );
+      const tags = currentUser.filterSettings.tags.filter((tag) =>
+        tag.site_list.some((tagSite) => siteMap[tagSite.id])
+      );
+      const tagsMap = tags.reduce(
+        (map, tag) => ({ ...map, [tag.id]: tag.is_active }), {}
+      );
+      setFilterArray(news.filter((el) => siteMap[el.site_id] && el.category_list.some(tag => tagsMap[tag.id])));
+    }
+  }, [currentUser, news]);
 
   const filteredNews = useMemo(() => {
     if (status === "succeeded") {
